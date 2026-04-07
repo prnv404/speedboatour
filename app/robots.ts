@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
             allow: '/',
             disallow: '/private/',
         },
-        sitemap: 'https://speedboatour.in/sitemap.xml',
+        sitemap: 'https://www.speedbaotours.in/sitemap.xml',
     }
 }
