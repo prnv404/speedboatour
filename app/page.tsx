@@ -159,7 +159,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           {[
             { icon: Clock, label: "Ride Duration", value: "30–60 min" },
-            { icon: Users, label: "Max Capacity", value: "6 persons" },
+            { icon: Users, label: "Max Capacity", value: "7 persons" },
             { icon: MapPin, label: "Location", value: "Punnamada" },
             { icon: Zap, label: "Starting At", value: "₹1,000" },
           ].map(({ icon: Icon, label, value }) => (
