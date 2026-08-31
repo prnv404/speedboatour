@@ -27,10 +27,19 @@ const PHONE = "+916238951178";
 const WHATSAPP = "916238951178";
 
 const galleryCards = [
-  { title: "Full Throttle on the Backwaters", src: "/images/hero1.jpeg" },
-  { title: "Punnamada Lake at Sunrise", src: "/images/hero2.jpeg" },
-  { title: "Private Ride Experience", src: "/images/hero3.jpeg" },
-  { title: "Open Water & Open Sky", src: "/images/hero4.jpeg" },
+  { title: "Speedboat Adventure", src: "/images/gallery-1.jpeg" },
+  { title: "Scenic Backwaters", src: "/images/gallery-2.jpeg" },
+  { title: "Lake Views", src: "/images/gallery-3.jpeg" },
+  { title: "Adrenaline Rush", src: "/images/gallery-4.jpeg" },
+  { title: "Alleppey Waters", src: "/images/gallery-5.jpeg" },
+  { title: "Fast Ride", src: "/images/gallery-6.jpeg" },
+  { title: "Beautiful Landscapes", src: "/images/gallery-7.jpeg" },
+  { title: "Speedboat Tours", src: "/images/gallery-8.jpeg" },
+  { title: "Thrilling Experience", src: "/images/gallery-9.jpeg" },
+  { title: "Kerala Backwaters", src: "/images/gallery-10.jpeg" },
+  { title: "Morning Calm", src: "/images/gallery-11.jpeg" },
+  { title: "Sunset Cruise", src: "/images/gallery-12.jpeg" },
+  { title: "Water Splash", src: "/images/gallery-13.jpeg" },
 ];
 
 const jsonLd = {
@@ -42,7 +51,7 @@ const jsonLd = {
     "Premium speed boat rides at Punnamada Lake, Alleppey. Private, high-speed, scenic backwater experience.",
   url: "https://speedboatour.in",
   telephone: "+91 62389 51178",
-  priceRange: "₹1000 – ₹5000",
+  priceRange: "₹1000 – ₹6000",
   address: {
     "@type": "PostalAddress",
     streetAddress: "Punnamada Lake",
@@ -267,7 +276,7 @@ export default function Home() {
               {
                 name: "Full Rush",
                 duration: "30 minutes",
-                price: "₹2,500",
+                price: "₹3,000",
                 sub: "up to 7 people",
                 features: [
                   "Extended backwater route",
@@ -280,7 +289,7 @@ export default function Home() {
               {
                 name: "Private Charter",
                 duration: "1 hour",
-                price: "₹5,000",
+                price: "₹6,000",
                 sub: "up to 7 people",
                 features: [
                   "Custom route & timing",
