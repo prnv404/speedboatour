@@ -440,14 +440,14 @@ export default function Home() {
       </section>
 
       {/* ─── PRICING ──────────────────────────────────────────────────────── */}
-      <section className="py-24 px-4 bg-gray-950" id="pricing">
+      <section className="py-24 px-4 bg-gray-50" id="pricing">
         <div className="max-w-5xl mx-auto">
           <BlurFade inView duration={0.6}>
             <div className="text-center mb-16">
-              <span className="text-xs font-bold text-green-400 uppercase tracking-[0.2em]">
+              <span className="text-xs font-bold text-green-600 uppercase tracking-[0.2em]">
                 Pricing
               </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-3 text-white">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-3 text-gray-900">
                 Speed Boat Ride Prices in Alleppey
               </h2>
               <p className="text-gray-500 mt-3 text-base">
@@ -463,15 +463,15 @@ export default function Home() {
           <div className="grid sm:grid-cols-3 gap-5">
             {packages.map((pkg) => (
               <BlurFade key={pkg.name} inView duration={0.6} delay={0.05}>
-                <div className="relative rounded-2xl bg-gray-900 border border-gray-800 p-7 flex flex-col h-full hover:border-green-500/30 transition-all duration-300 group hover:shadow-[0_0_50px_rgba(34,197,94,0.08)]">
+                <div className="relative rounded-2xl bg-white border border-gray-200 p-7 flex flex-col h-full hover:border-green-500/50 hover:shadow-lg transition-all duration-300 group">
                   {pkg.badge && (
                     <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-green-500 text-white text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-widest whitespace-nowrap">
                       {pkg.badge}
                     </span>
                   )}
                   <div className="mb-5">
-                    <h3 className="text-xl font-bold text-white">{pkg.name}</h3>
-                    <p className="text-sm text-gray-500 mt-0.5">
+                    <h3 className="text-xl font-bold text-gray-900">{pkg.name}</h3>
+                    <p className="text-sm text-gray-400 mt-0.5">
                       {pkg.duration} · Max {pkg.maxCapacity} persons
                     </p>
                   </div>
@@ -487,7 +487,7 @@ export default function Home() {
                   </div>
                   <ul className="space-y-3 mb-8 flex-1">
                     {pkg.features.map((f) => (
-                      <li key={f} className="flex items-start gap-2.5 text-sm text-gray-400">
+                      <li key={f} className="flex items-start gap-2.5 text-sm text-gray-500">
                         <CheckCircle size={14} className="mt-0.5 shrink-0 text-green-500" />
                         {f}
                       </li>
