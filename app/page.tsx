@@ -45,7 +45,10 @@ const galleryCards = [
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": ["TouristAttraction", "LocalBusiness"],
-  name: "Speedboat Tours Alleppey",
+  name: "Alleppey Speed Boat Tours",
+  sameAs: [
+    "https://share.google/yuSHFGPIllIIMpXJa",
+  ],
   image: [
     "https://speedboatour.in/images/hero1.jpeg",
     "https://speedboatour.in/images/hero2.jpeg",
@@ -59,7 +62,7 @@ const jsonLd = {
   currenciesAccepted: "INR",
   paymentAccepted: "Cash, UPI",
   openingHours: ["Mo-Su 06:00-18:00"],
-  hasMap: "https://www.google.com/maps?q=Punnamada+Lake,+Alleppey,+Kerala",
+  hasMap: "https://share.google/yuSHFGPIllIIMpXJa",
   address: {
     "@type": "PostalAddress",
     streetAddress: "Punnamada Lake Jetty",
