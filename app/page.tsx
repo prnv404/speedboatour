@@ -27,34 +27,42 @@ const PHONE = "+916238951178";
 const WHATSAPP = "916238951178";
 
 const galleryCards = [
-  { title: "Speedboat Adventure", src: "/images/gallery-1.jpeg" },
-  { title: "Scenic Backwaters", src: "/images/gallery-2.jpeg" },
-  { title: "Lake Views", src: "/images/gallery-3.jpeg" },
-  { title: "Adrenaline Rush", src: "/images/gallery-4.jpeg" },
-  { title: "Alleppey Waters", src: "/images/gallery-5.jpeg" },
-  { title: "Fast Ride", src: "/images/gallery-6.jpeg" },
-  { title: "Beautiful Landscapes", src: "/images/gallery-7.jpeg" },
-  { title: "Speedboat Tours", src: "/images/gallery-8.jpeg" },
-  { title: "Thrilling Experience", src: "/images/gallery-9.jpeg" },
-  { title: "Kerala Backwaters", src: "/images/gallery-10.jpeg" },
-  { title: "Morning Calm", src: "/images/gallery-11.jpeg" },
-  { title: "Sunset Cruise", src: "/images/gallery-12.jpeg" },
-  { title: "Water Splash", src: "/images/gallery-13.jpeg" },
+  { title: "Speed Boat in Alleppey", src: "/images/gallery-1.jpeg" },
+  { title: "Punnamada Lake Backwaters", src: "/images/gallery-2.jpeg" },
+  { title: "Alleppey Speed Boat Ride", src: "/images/gallery-3.jpeg" },
+  { title: "Adrenaline on the Water", src: "/images/gallery-4.jpeg" },
+  { title: "Alleppey Speedboat Tour", src: "/images/gallery-5.jpeg" },
+  { title: "High-Speed Backwater Ride", src: "/images/gallery-6.jpeg" },
+  { title: "Kerala Backwater Views", src: "/images/gallery-7.jpeg" },
+  { title: "Speedboat Tours Alleppey", src: "/images/gallery-8.jpeg" },
+  { title: "Thrilling Speed Boat Experience", src: "/images/gallery-9.jpeg" },
+  { title: "Kerala Backwaters at Speed", src: "/images/gallery-10.jpeg" },
+  { title: "Morning Ride Punnamada Lake", src: "/images/gallery-11.jpeg" },
+  { title: "Sunset Speed Boat Alleppey", src: "/images/gallery-12.jpeg" },
+  { title: "Water Splash Alleppey", src: "/images/gallery-13.jpeg" },
 ];
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@type": ["TouristAttraction", "LocalBusiness"],
   name: "Speedboat Tours Alleppey",
-  image: "https://speedboatour.in/images/hero1.jpeg",
+  image: [
+    "https://speedboatour.in/images/hero1.jpeg",
+    "https://speedboatour.in/images/hero2.jpeg",
+    "https://speedboatour.in/images/gallery-1.jpeg",
+  ],
   description:
-    "Premium speed boat rides at Punnamada Lake, Alleppey. Private, high-speed, scenic backwater experience.",
+    "Book a speed boat in Alleppey at Punnamada Lake. Private high-speed backwater rides from ₹1,000. 1,200+ happy guests, 4.9★ rated. Licensed & experienced operators.",
   url: "https://speedboatour.in",
   telephone: "+91 62389 51178",
   priceRange: "₹1000 – ₹6000",
+  currenciesAccepted: "INR",
+  paymentAccepted: "Cash, UPI",
+  openingHours: ["Mo-Su 06:00-18:00"],
+  hasMap: "https://www.google.com/maps?q=Punnamada+Lake,+Alleppey,+Kerala",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Punnamada Lake",
+    streetAddress: "Punnamada Lake Jetty",
     addressLocality: "Alleppey",
     addressRegion: "Kerala",
     postalCode: "688006",
@@ -65,6 +73,92 @@ const jsonLd = {
     latitude: "9.4940",
     longitude: "76.3282",
   },
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.9",
+    reviewCount: "1200",
+    bestRating: "5",
+    worstRating: "1",
+  },
+  review: [
+    {
+      "@type": "Review",
+      author: { "@type": "Person", name: "Arjun Menon" },
+      reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+      reviewBody:
+        "Absolutely incredible. The 1-hour package is worth every rupee. The boat was fast, the views were stunning.",
+    },
+    {
+      "@type": "Review",
+      author: { "@type": "Person", name: "Thomas George" },
+      reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+      reviewBody:
+        "Best experience in Alleppey by far. Way better than the typical houseboat tour. Pure adrenaline.",
+    },
+  ],
+};
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What is the best time for a speed boat ride in Alleppey?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Early morning (6–9 AM) and late afternoon (4–6 PM) are ideal. The light is beautiful, the water is calm, and it's not too hot. Sunrise and sunset rides are especially popular.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How much does a speed boat ride cost in Alleppey?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Speed boat rides in Alleppey start from ₹1,000 for a 10-minute Quick Thrill (up to 3 people). The Full Rush (30 min, up to 7 people) is ₹3,000, and a Private Charter (1 hour, up to 7 people) is ₹6,000. All prices are fixed with no hidden charges.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Where is the speed boat jetty in Alleppey?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Our speed boat jetty is located at Punnamada Lake, Alleppey (Alappuzha), Kerala – approximately 3 km from Alleppey town centre. Easily reachable by auto-rickshaw or cab.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How do I book a speed boat ride in Alleppey?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "The easiest way to book a speed boat ride in Alleppey is via WhatsApp — message us your date, time, and chosen package. You can also call directly. Confirmation is instant.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is the speed boat ride in Alleppey safe?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Absolutely. All rides are operated by licensed, experienced professionals. We provide coast guard approved life jackets for every passenger and follow all Kerala water transport safety regulations.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can I bring children on the speed boat in Alleppey?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes, children are welcome with appropriately sized life jackets. For very young children (under 5), we recommend the 30-min package and adjust speed accordingly.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What is the cancellation policy?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Free cancellation up to 24 hours before your ride. Within 24 hours, a 50% charge applies. Bad weather? We reschedule at no cost.",
+      },
+    },
+  ],
 };
 
 export default function Home() {
@@ -73,6 +167,10 @@ export default function Home() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
       {/* ─── HERO ─────────────────────────────────────────────────────────── */}
@@ -98,12 +196,12 @@ export default function Home() {
           {/* Hook headline */}
           <BlurFade delay={0.1} duration={0.7}>
             <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tight mb-6">
-              <span className="block text-white">Feel</span>
+              <span className="block text-white">Speed Boat</span>
               <span className="block bg-gradient-to-r from-green-400 via-emerald-300 to-green-500 bg-clip-text text-transparent">
-                60 km/h.
+                in Alleppey.
               </span>
               <span className="block text-white/90 text-4xl sm:text-5xl md:text-6xl font-bold mt-2">
-                On Kerala&apos;s Backwaters.
+                60 km/h across Punnamada Lake.
               </span>
             </h1>
           </BlurFade>
@@ -111,8 +209,8 @@ export default function Home() {
           {/* Subtext */}
           <BlurFade delay={0.25} duration={0.6}>
             <p className="text-white/70 text-lg sm:text-xl max-w-xl mx-auto mb-10 leading-relaxed">
-              Private speedboat rides across the stunning Punnamada Lake.
-              No crowds. No slow pace. Just you, the water, and pure adrenaline.
+              The most thrilling speed boat ride in Alleppey — private, high-speed,
+              and entirely yours. No crowds. No slow pace. Just the backwaters at full throttle.
             </p>
           </BlurFade>
 
@@ -194,10 +292,10 @@ export default function Home() {
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-3 mb-6 leading-tight text-gray-900">
                 Not a Cruise.
                 <br />
-                <span className="text-gray-400">A Rush.</span>
+                <span className="text-gray-400">The Best Speed Boat Ride in Alleppey.</span>
               </h2>
               <p className="text-gray-500 mb-8 leading-relaxed text-lg">
-                Punnamada Lake looks calm until you&apos;re on a speedboat slicing
+                Punnamada Lake looks calm — until you&apos;re on a speed boat in Alleppey slicing
                 through it at full throttle. The backwaters blur. The wind hits.
                 For a few minutes, there&apos;s nothing else.
               </p>
@@ -251,10 +349,10 @@ export default function Home() {
                 Pricing
               </span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-3 text-gray-900">
-                Pick Your Package
+                Speed Boat Ride Prices in Alleppey
               </h2>
               <p className="text-gray-400 mt-3 text-base">
-                What you see is what you pay. No surprises.
+                What you see is what you pay. No hidden charges, ever.
               </p>
             </div>
           </BlurFade>
@@ -367,7 +465,7 @@ export default function Home() {
                 Gallery
               </span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-3 text-gray-900">
-                See It Before You Feel It
+                Speed Boat in Alleppey – Real Footage
               </h2>
             </div>
           </BlurFade>
@@ -384,7 +482,7 @@ export default function Home() {
                 Why Us
               </span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-3 text-gray-900">
-                Why Book With Us
+                Why We&apos;re Alleppey&apos;s #1 Speed Boat Operator
               </h2>
             </div>
           </BlurFade>
@@ -435,7 +533,7 @@ export default function Home() {
                 Reviews
               </span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-3 text-gray-900">
-                What Guests Say
+                What Guests Say About Our Alleppey Speed Boat
               </h2>
             </div>
           </BlurFade>
@@ -494,11 +592,11 @@ export default function Home() {
                 Location
               </span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-3 text-gray-900">
-                Find Us at Punnamada
+                Speed Boat Jetty – Punnamada Lake, Alleppey
               </h2>
               <p className="text-gray-400 mt-3 max-w-md mx-auto">
-                Punnamada Lake jetty, Alleppey, Kerala — 3 km from town.
-                Easy to reach by auto or cab.
+                Find our speed boat jetty at Punnamada Lake, Alleppey (Alappuzha), Kerala — 3 km from town.
+                Easy to reach by auto-rickshaw or cab.
               </p>
             </div>
           </BlurFade>
@@ -527,7 +625,7 @@ export default function Home() {
                 FAQ
               </span>
               <h2 className="text-3xl sm:text-4xl font-black mt-3 text-gray-900">
-                Common Questions
+                Speed Boat in Alleppey – FAQs
               </h2>
             </div>
           </BlurFade>
@@ -535,24 +633,32 @@ export default function Home() {
           <Accordion type="single" collapsible className="space-y-3">
             {[
               {
-                q: "What is the best time for a speedboat ride in Alleppey?",
-                a: "Early morning (6–9 AM) and late afternoon (4–6 PM) are ideal. The light is beautiful, the water is calm, and it's not too hot. Sunrise and sunset rides are especially popular.",
+                q: "What is the best time for a speed boat ride in Alleppey?",
+                a: "Early morning (6–9 AM) and late afternoon (4–6 PM) are ideal. The light is beautiful, the water is calm, and it's not too hot. Sunrise and sunset rides at Punnamada Lake are especially popular.",
               },
               {
-                q: "Is the speedboat ride safe?",
-                a: "Absolutely. All rides are by licensed, experienced operators. We provide coast guard approved life jackets for every passenger and follow all Kerala water transport safety rules.",
+                q: "How much does a speed boat ride cost in Alleppey?",
+                a: "Speed boat rides in Alleppey start from ₹1,000 for a 10-minute Quick Thrill (up to 3 people). The Full Rush (30 min, up to 7 people) is ₹3,000, and a Private Charter (1 hour, up to 7 people) is ₹6,000. All prices are fixed — no hidden charges.",
               },
               {
-                q: "How do I book?",
-                a: "Easiest way is via WhatsApp — message us your date, time, and package. You can also call directly. Confirmation is instant.",
+                q: "Where is the speed boat jetty in Alleppey?",
+                a: "Our speed boat jetty is at Punnamada Lake, Alleppey (Alappuzha), Kerala — about 3 km from town. Easily reachable by auto-rickshaw or cab from Alleppey town or your houseboat jetty.",
               },
               {
-                q: "Can I bring children?",
+                q: "How do I book a speed boat ride in Alleppey?",
+                a: "The easiest way is via WhatsApp — message us your preferred date, time, and package. You can also call directly. Confirmation is instant with no forms or waiting.",
+              },
+              {
+                q: "Is the speed boat ride in Alleppey safe?",
+                a: "Absolutely. All rides are operated by licensed, experienced professionals. We provide coast guard approved life jackets for every passenger and follow all Kerala water transport safety regulations.",
+              },
+              {
+                q: "Can I bring children on the speed boat in Alleppey?",
                 a: "Yes, children are welcome with appropriately sized life jackets. For very young children (under 5), we recommend the 30-min package and adjust speed accordingly.",
               },
               {
                 q: "What is the cancellation policy?",
-                a: "Free cancellation up to 24 hours before. Within 24 hours, 50% charge applies. Bad weather? We reschedule at no cost.",
+                a: "Free cancellation up to 24 hours before your ride. Within 24 hours, a 50% charge applies. Bad weather? We reschedule at no cost.",
               },
               {
                 q: "How many people can ride at once?",

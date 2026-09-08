@@ -9,18 +9,26 @@ const geistSans = Geist({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://speedboatour.in"),
-  title: "Speed Boat Ride in Alleppey – Punnamada Lake | Book Now",
+  title: "Speed Boat in Alleppey – Fast Rides at Punnamada Lake | Book Now",
   description:
-    "speed boat ride in Alleppey at Punnamada Lake. High-speed backwater experience, transparent pricing, private rides. 1000+ happy guests. Book now or call directly.",
+    "Book a speed boat in Alleppey at Punnamada Lake. Private high-speed rides from ₹1,000. 1,200+ happy guests, 4.9★ rated. Book instantly via WhatsApp or call now.",
   keywords: [
+    "speed boat in alleppey",
     "speed boat alleppey",
     "alleppey speed boat ride",
-    "punnamada speed boat",
-    "boat ride alleppey",
-    "backwater speed boat",
-    "alleppey boating price",
+    "speedboat alleppey price",
+    "punnamada lake boat ride",
+    "alleppey speedboat tour",
     "speed boat punnamada lake",
     "alappuzha speed boat",
+    "alappuzha speedboat",
+    "backwater speed boat",
+    "boat ride alleppey",
+    "alleppey boating price",
+    "kerala speedboat tour",
+    "water sports alleppey",
+    "alleppey water sports",
+    "boat ride near alleppey",
   ],
   authors: [{ name: "Speedboat Tours Alleppey" }],
   creator: "Speedboat Tours Alleppey",
@@ -28,24 +36,24 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_IN",
     url: "https://speedboatour.in",
-    title: "Speed Boat Ride in Alleppey – Punnamada Lake",
+    title: "Speed Boat in Alleppey – Fast Rides at Punnamada Lake",
     description:
-      "speed boat rides at Punnamada Lake, Alleppey. Private, high-speed, scenic backwater experience. Book online or WhatsApp us.",
+      "Book a speed boat in Alleppey at Punnamada Lake. Private high-speed rides from ₹1,000. 1,200+ happy guests. Book via WhatsApp in minutes.",
     siteName: "Speedboat Tours Alleppey",
     images: [
       {
         url: "/images/hero1.jpeg",
         width: 1200,
         height: 630,
-        alt: "Speed boat ride at Punnamada Lake, Alleppey",
+        alt: "Speed boat ride at Punnamada Lake, Alleppey, Kerala",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Speed Boat Ride in Alleppey – Punnamada Lake",
+    title: "Speed Boat in Alleppey – Fast Rides at Punnamada Lake",
     description:
-      "Premium speed boat rides at Punnamada Lake, Alleppey. Private, high-speed, scenic backwater experience.",
+      "Book a speed boat in Alleppey at Punnamada Lake. Private high-speed rides from ₹1,000. 1,200+ happy guests, 4.9★ rated.",
     images: ["/images/hero1.jpeg"],
   },
   alternates: {
