@@ -51,6 +51,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://speedboatour.in",
   },
+  verification: {
+    google: "jbRdR527pFaJnw3iMbuuMWHurGQjhH5brnDmg_C5yn0",
+  },
   robots: {
     index: true,
     follow: true,

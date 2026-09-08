@@ -100,7 +100,7 @@ export default function Home() {
             <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tight mb-6">
               <span className="block text-white">Feel</span>
               <span className="block bg-gradient-to-r from-green-400 via-emerald-300 to-green-500 bg-clip-text text-transparent">
-                80 km/h.
+                60git add . km/h.
               </span>
               <span className="block text-white/90 text-4xl sm:text-5xl md:text-6xl font-bold mt-2">
                 On Kerala&apos;s Backwaters.
