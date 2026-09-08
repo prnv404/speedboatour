@@ -1,7 +1,5 @@
 import Image from "next/image";
-import { BorderBeam } from "@/components/ui/border-beam";
 import { BlurFade } from "@/components/ui/blur-fade";
-import { NumberTicker } from "@/components/ui/number-ticker";
 import { FocusCards } from "@/components/ui/focus-cards";
 import {
   Accordion,
@@ -12,8 +10,6 @@ import {
 import {
   Phone,
   MessageCircle,
-  Clock,
-  Users,
   MapPin,
   Star,
   Shield,
@@ -21,6 +17,7 @@ import {
   Zap,
   Anchor,
   Waves,
+  Users,
 } from "lucide-react";
 
 const PHONE = "+916238951178";
@@ -42,13 +39,57 @@ const galleryCards = [
   { title: "Water Splash Alleppey", src: "/images/gallery-13.jpeg" },
 ];
 
+const packages = [
+  {
+    name: "Quick Thrill",
+    duration: "10 minutes",
+    basePrice: "₹1,000",
+    baseSub: "up to 3 persons",
+    extraPrice: "+₹300",
+    extraSub: "per extra person (4–7)",
+    maxCapacity: "7",
+    badge: null as string | null,
+    features: ["High-speed lake loop", "Life jackets included", "Great for first-timers"],
+  },
+  {
+    name: "Full Rush",
+    duration: "30 minutes",
+    basePrice: "₹2,500",
+    baseSub: "up to 4 persons",
+    extraPrice: "₹3,000",
+    extraSub: "flat rate for 5–7 persons",
+    maxCapacity: "7",
+    badge: "Most Booked" as string | null,
+    features: [
+      "Extended backwater route",
+      "Photo stops at scenic spots",
+      "Sunrise / sunset option",
+      "Full safety equipment",
+    ],
+  },
+  {
+    name: "Private Charter",
+    duration: "1 hour",
+    basePrice: "₹5,000",
+    baseSub: "up to 4 persons",
+    extraPrice: "₹6,000",
+    extraSub: "flat rate for 5–7 persons",
+    maxCapacity: "7",
+    badge: null as string | null,
+    features: [
+      "Custom route & timing",
+      "Ideal for groups & couples",
+      "Sunrise / sunset option",
+      "Full safety equipment",
+    ],
+  },
+];
+
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": ["TouristAttraction", "LocalBusiness"],
   name: "Alleppey Speed Boat Tours",
-  sameAs: [
-    "https://share.google/yuSHFGPIllIIMpXJa",
-  ],
+  sameAs: ["https://share.google/yuSHFGPIllIIMpXJa"],
   image: [
     "https://speedboatour.in/images/hero1.jpeg",
     "https://speedboatour.in/images/hero2.jpeg",
@@ -71,11 +112,7 @@ const jsonLd = {
     postalCode: "688006",
     addressCountry: "IN",
   },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: "9.4940",
-    longitude: "76.3282",
-  },
+  geo: { "@type": "GeoCoordinates", latitude: "9.4940", longitude: "76.3282" },
   aggregateRating: {
     "@type": "AggregateRating",
     ratingValue: "4.9",
@@ -88,15 +125,13 @@ const jsonLd = {
       "@type": "Review",
       author: { "@type": "Person", name: "Arjun Menon" },
       reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
-      reviewBody:
-        "Absolutely incredible. The 1-hour package is worth every rupee. The boat was fast, the views were stunning.",
+      reviewBody: "Absolutely incredible. The 1-hour package is worth every rupee. The boat was fast, the views were stunning.",
     },
     {
       "@type": "Review",
       author: { "@type": "Person", name: "Thomas George" },
       reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
-      reviewBody:
-        "Best experience in Alleppey by far. Way better than the typical houseboat tour. Pure adrenaline.",
+      reviewBody: "Best experience in Alleppey by far. Way better than the typical houseboat tour. Pure adrenaline.",
     },
   ],
 };
@@ -118,7 +153,7 @@ const faqJsonLd = {
       name: "How much does a speed boat ride cost in Alleppey?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Speed boat rides in Alleppey start from ₹1,000 for a 10-minute Quick Thrill (up to 3 people). The Full Rush (30 min, up to 7 people) is ₹3,000, and a Private Charter (1 hour, up to 7 people) is ₹6,000. All prices are fixed with no hidden charges.",
+        text: "Speed boat rides in Alleppey start from ₹1,000 for a 10-minute Quick Thrill (up to 3 persons); ₹300 per extra person for groups of 4–7. The Full Rush (30 min) is ₹2,500 for up to 4 persons, or ₹3,000 flat for 5–7 persons. The Private Charter (1 hour) is ₹5,000 for up to 4 persons, or ₹6,000 flat for 5–7 persons. All prices are fixed with no hidden charges.",
       },
     },
     {
@@ -176,9 +211,24 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
+      {/* ─── ANNOUNCEMENT BAR ──────────────────────────────────────────────── */}
+      <div className="bg-green-600 text-white text-center py-2.5 px-4 text-xs sm:text-sm font-semibold">
+        <span className="inline-flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-white/80 animate-pulse shrink-0" />
+          Weekend slots filling fast —{" "}
+          <a
+            href={`https://wa.me/${WHATSAPP}?text=Hi%2C%20I%20want%20to%20book%20a%20speed%20boat%20ride%20in%20Alleppey`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-2 hover:no-underline ml-1"
+          >
+            WhatsApp us now to confirm yours →
+          </a>
+        </span>
+      </div>
+
       {/* ─── HERO ─────────────────────────────────────────────────────────── */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Boat image — moody, cinematic */}
         <div className="absolute inset-0">
           <Image
             src="/images/hero4.jpeg"
@@ -188,15 +238,24 @@ export default function Home() {
             className="object-cover object-center"
             sizes="100vw"
           />
-          {/* Multi-layer overlay for text readability */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/55 to-black/25" />
           <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/20" />
         </div>
 
-        {/* Content */}
         <div className="relative z-10 text-center px-4 max-w-5xl mx-auto pt-24 pb-32">
+          <BlurFade delay={0} duration={0.6}>
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-8 text-xs sm:text-sm">
+              <div className="flex gap-0.5">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} size={11} className="fill-yellow-400 text-yellow-400" />
+                ))}
+              </div>
+              <span className="text-white font-semibold">
+                4.9★ · Alleppey&apos;s #1 Speed Boat · 1,200+ Rides
+              </span>
+            </div>
+          </BlurFade>
 
-          {/* Hook headline */}
           <BlurFade delay={0.1} duration={0.7}>
             <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tight mb-6">
               <span className="block text-white">Speed Boat</span>
@@ -209,25 +268,23 @@ export default function Home() {
             </h1>
           </BlurFade>
 
-          {/* Subtext */}
           <BlurFade delay={0.25} duration={0.6}>
             <p className="text-white/70 text-lg sm:text-xl max-w-xl mx-auto mb-10 leading-relaxed">
-              The most thrilling speed boat ride in Alleppey — private, high-speed,
-              and entirely yours. No crowds. No slow pace. Just the backwaters at full throttle.
+              Private, high-speed backwater rides from ₹1,000. No crowds. No slow pace. Just the
+              backwaters at full throttle.
             </p>
           </BlurFade>
 
-          {/* CTAs */}
           <BlurFade delay={0.4} duration={0.6}>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <a
                 href={`https://wa.me/${WHATSAPP}?text=Hi%2C%20I%20want%20to%20book%20a%20speed%20boat%20ride%20in%20Alleppey`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center gap-2.5 bg-green-500 hover:bg-green-600 text-white font-bold px-8 py-4 rounded-xl transition-all duration-200 text-base shadow-[0_0_30px_rgba(34,197,94,0.4)] hover:shadow-[0_0_40px_rgba(34,197,94,0.6)]"
+                className="group inline-flex items-center justify-center gap-2.5 bg-green-500 hover:bg-green-400 text-white font-bold px-8 py-4 rounded-xl transition-all duration-200 text-base shadow-[0_0_40px_rgba(34,197,94,0.5)] hover:shadow-[0_0_60px_rgba(34,197,94,0.7)] hover:scale-[1.03]"
               >
                 <MessageCircle size={20} />
-                Book on WhatsApp
+                Book on WhatsApp — Instant Confirm
               </a>
               <a
                 href={`tel:${PHONE}`}
@@ -239,25 +296,23 @@ export default function Home() {
             </div>
           </BlurFade>
 
-          {/* Social proof */}
           <BlurFade delay={0.5} duration={0.6}>
-            <div className="flex items-center justify-center gap-6 text-sm">
-              <div className="flex items-center gap-1.5 text-white/60">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} size={13} className="fill-yellow-400 text-yellow-400" />
-                ))}
-                <span className="ml-1 text-white/80">4.9 / 5</span>
-              </div>
-              <div className="w-px h-4 bg-white/30" />
-              <span className="text-white/60">
-                <NumberTicker value={1200} className="text-green-400 font-bold text-base" />
-                <span className="ml-1">+ rides completed</span>
-              </span>
+            <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-white/50">
+              {[
+                "Licensed & certified operators",
+                "Life jackets for all",
+                "No hidden charges",
+                "Instant WhatsApp confirmation",
+              ].map((t) => (
+                <span key={t} className="flex items-center gap-1.5 font-medium">
+                  <CheckCircle size={11} className="text-green-400 shrink-0" />
+                  {t}
+                </span>
+              ))}
             </div>
           </BlurFade>
         </div>
 
-        {/* Scroll indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-white/40 text-xs">
           <span className="tracking-widest uppercase text-[10px]">Scroll</span>
           <div className="w-px h-8 bg-gradient-to-b from-white/40 to-transparent animate-pulse" />
@@ -265,20 +320,20 @@ export default function Home() {
       </section>
 
       {/* ─── STATS BAR ────────────────────────────────────────────────────── */}
-      <section className="border-y border-gray-200 bg-gray-50 py-8 px-4">
+      <section className="border-y border-gray-100 bg-white py-8 px-4">
         <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           {[
-            { icon: Clock, label: "Ride Duration", value: "30–60 min" },
-            { icon: Users, label: "Max Capacity", value: "7 persons" },
+            { icon: Star, label: "Guest Rating", value: "4.9★" },
+            { icon: Users, label: "Rides Done", value: "1,200+" },
             { icon: MapPin, label: "Location", value: "Punnamada" },
-            { icon: Zap, label: "Starting At", value: "₹1,000" },
+            { icon: Zap, label: "Starts From", value: "₹1,000" },
           ].map(({ icon: Icon, label, value }) => (
             <div key={label} className="flex flex-col items-center gap-1.5">
               <Icon size={20} className="text-green-600 opacity-80" />
               <span className="text-[11px] uppercase tracking-widest text-gray-400 font-medium">
                 {label}
               </span>
-              <span className="font-bold text-xl text-gray-900">{value}</span>
+              <span className="font-black text-xl text-gray-900">{value}</span>
             </div>
           ))}
         </div>
@@ -298,23 +353,29 @@ export default function Home() {
             </div>
             <div className="prose prose-gray max-w-none text-gray-500 leading-relaxed space-y-4 text-base sm:text-lg text-center">
               <p>
-                Looking for the best <strong className="text-gray-700">speed boat in Alleppey</strong>? You&apos;ve found it.
-                We operate private, high-speed boat rides on Punnamada Lake, Alappuzha — the iconic backwater stretch
-                made famous by the Nehru Trophy Boat Race. Our speed boats reach up to 60 km/h, giving you a rush
-                that no houseboat or shikara can come close to.
+                Looking for the best{" "}
+                <strong className="text-gray-700">speed boat in Alleppey</strong>? You&apos;ve
+                found it. We operate private, high-speed boat rides on Punnamada Lake, Alappuzha —
+                the iconic backwater stretch made famous by the Nehru Trophy Boat Race. Our speed
+                boats reach up to 60 km/h, giving you a rush that no houseboat or shikara can come
+                close to.
               </p>
               <p>
-                Whether you&apos;re a solo traveller, a couple on a honeymoon trip, or a group of friends looking for
-                an adrenaline-charged experience in Kerala, our <strong className="text-gray-700">speed boat ride in Alleppey</strong> is
-                the perfect add-on to your itinerary. Packages start from just ₹1,000 for a 10-minute loop and go
-                up to ₹6,000 for a 1-hour private charter.
+                Whether you&apos;re a solo traveller, a couple on a honeymoon trip, or a group of
+                friends looking for an adrenaline-charged experience in Kerala, our{" "}
+                <strong className="text-gray-700">speed boat ride in Alleppey</strong> is the
+                perfect add-on to your itinerary. Packages start from just ₹1,000 for a 10-minute
+                loop and go up to ₹6,000 for a 1-hour private charter.
               </p>
               <p>
-                We are a <strong className="text-gray-700">direct, licensed speed boat operator in Alleppey</strong> — not a middleman or
-                travel agency reseller. Every boat is owned and operated by us, departing from our jetty at
-                Punnamada Lake, just 3 km from Alleppey town. Safety is non-negotiable: every passenger gets a
-                coast guard approved life jacket, and our operators are fully certified by Kerala water transport
-                authorities.
+                We are a{" "}
+                <strong className="text-gray-700">
+                  direct, licensed speed boat operator in Alleppey
+                </strong>{" "}
+                — not a middleman or travel agency reseller. Every boat is owned and operated by us,
+                departing from our jetty at Punnamada Lake, just 3 km from Alleppey town. Safety is
+                non-negotiable: every passenger gets a coast guard approved life jacket, and our
+                operators are fully certified by Kerala water transport authorities.
               </p>
             </div>
           </BlurFade>
@@ -332,12 +393,14 @@ export default function Home() {
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-3 mb-6 leading-tight text-gray-900">
                 Not a Cruise.
                 <br />
-                <span className="text-gray-400">The Best Speed Boat Ride in Alleppey.</span>
+                <span className="text-gray-400">
+                  The Best Speed Boat Ride in Alleppey.
+                </span>
               </h2>
               <p className="text-gray-500 mb-8 leading-relaxed text-lg">
                 Punnamada Lake looks calm — until you&apos;re on a speed boat in Alleppey slicing
-                through it at full throttle. The backwaters blur. The wind hits.
-                For a few minutes, there&apos;s nothing else.
+                through it at full throttle. The backwaters blur. The wind hits. For a few minutes,
+                there&apos;s nothing else.
               </p>
               <ul className="space-y-4">
                 {[
@@ -370,7 +433,6 @@ export default function Home() {
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
-              {/* Glow effect */}
               <div className="absolute -inset-4 bg-green-500/5 rounded-3xl blur-2xl -z-10" />
             </div>
           </BlurFade>
@@ -378,121 +440,77 @@ export default function Home() {
       </section>
 
       {/* ─── PRICING ──────────────────────────────────────────────────────── */}
-      <section
-        className="py-24 px-4 bg-gray-50"
-        id="pricing"
-      >
+      <section className="py-24 px-4 bg-gray-950" id="pricing">
         <div className="max-w-5xl mx-auto">
           <BlurFade inView duration={0.6}>
             <div className="text-center mb-16">
-              <span className="text-xs font-bold text-green-600 uppercase tracking-[0.2em]">
+              <span className="text-xs font-bold text-green-400 uppercase tracking-[0.2em]">
                 Pricing
               </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-3 text-gray-900">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-3 text-white">
                 Speed Boat Ride Prices in Alleppey
               </h2>
-              <p className="text-gray-400 mt-3 text-base">
+              <p className="text-gray-500 mt-3 text-base">
                 What you see is what you pay. No hidden charges, ever.
               </p>
+              <div className="inline-flex items-center gap-2 mt-5 bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-semibold px-4 py-2 rounded-full">
+                <span className="w-1.5 h-1.5 rounded-full bg-orange-400 animate-pulse shrink-0" />
+                Limited daily slots — book in advance to secure your ride
+              </div>
             </div>
           </BlurFade>
 
-          <div className="grid sm:grid-cols-3 gap-6">
-            {[
-              {
-                name: "Quick Thrill",
-                duration: "10 minutes",
-                price: "₹1,000",
-                sub: "up to 3 people",
-                features: [
-                  "High-speed lake loop",
-                  "Life jackets included",
-                  "Great for first-timers",
-                ],
-                popular: false,
-              },
-              {
-                name: "Full Rush",
-                duration: "30 minutes",
-                price: "₹3,000",
-                sub: "up to 7 people",
-                features: [
-                  "Extended backwater route",
-                  "Photo stops at scenic spots",
-                  "Sunrise / sunset option",
-                  "Full safety equipment",
-                ],
-                popular: true,
-              },
-              {
-                name: "Private Charter",
-                duration: "1 hour",
-                price: "₹6,000",
-                sub: "up to 7 people",
-                features: [
-                  "Custom route & timing",
-                  "Up to 7 passengers",
-                  "Ideal for groups & couples",
-                  "Full safety equipment",
-                ],
-                popular: false,
-              },
-            ].map((pkg) => (
+          <div className="grid sm:grid-cols-3 gap-5">
+            {packages.map((pkg) => (
               <BlurFade key={pkg.name} inView duration={0.6} delay={0.05}>
-                <div
-                  className={`relative rounded-2xl p-7 flex flex-col h-full transition-all duration-300 ${
-                    pkg.popular
-                      ? "bg-gradient-to-b from-green-500/15 to-green-900/5 border border-green-500/40 shadow-[0_0_40px_rgba(34,197,94,0.15)]"
-                      : "bg-white border border-gray-200 hover:border-gray-300 hover:shadow-md"
-                  }`}
-                >
-                  {pkg.popular && (
-                    <>
-                      <BorderBeam colorFrom="#22c55e" colorTo="#16a34a" duration={4} />
-                      <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-green-500 text-white text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-widest">
-                        Most Popular
-                      </span>
-                    </>
+                <div className="relative rounded-2xl bg-gray-900 border border-gray-800 p-7 flex flex-col h-full hover:border-green-500/30 transition-all duration-300 group hover:shadow-[0_0_50px_rgba(34,197,94,0.08)]">
+                  {pkg.badge && (
+                    <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-green-500 text-white text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-widest whitespace-nowrap">
+                      {pkg.badge}
+                    </span>
                   )}
-
                   <div className="mb-5">
-                    <h3 className="text-xl font-bold text-gray-900">{pkg.name}</h3>
-                    <p className="text-sm text-gray-400 mt-0.5">{pkg.duration}</p>
+                    <h3 className="text-xl font-bold text-white">{pkg.name}</h3>
+                    <p className="text-sm text-gray-500 mt-0.5">
+                      {pkg.duration} · Max {pkg.maxCapacity} persons
+                    </p>
                   </div>
-
-                  <div className="mb-6">
-                    <span className="text-5xl font-black text-gray-900">{pkg.price}</span>
-                    <span className="text-sm text-gray-400 ml-2">{pkg.sub}</span>
+                  <div className="mb-6 rounded-xl overflow-hidden border border-gray-100 divide-y divide-gray-100">
+                    <div className="flex items-center justify-between px-4 py-3 bg-gray-50">
+                      <span className="text-xs text-gray-500">{pkg.baseSub}</span>
+                      <span className="text-xl font-black text-gray-900">{pkg.basePrice}</span>
+                    </div>
+                    <div className="flex items-center justify-between px-4 py-3 bg-white">
+                      <span className="text-xs text-gray-400">{pkg.extraSub}</span>
+                      <span className="text-lg font-bold text-green-600">{pkg.extraPrice}</span>
+                    </div>
                   </div>
-
                   <ul className="space-y-3 mb-8 flex-1">
                     {pkg.features.map((f) => (
-                      <li key={f} className="flex items-start gap-2.5 text-sm text-gray-500">
-                        <CheckCircle
-                          size={14}
-                          className={`mt-0.5 shrink-0 ${pkg.popular ? "text-green-500" : "text-gray-300"}`}
-                        />
+                      <li key={f} className="flex items-start gap-2.5 text-sm text-gray-400">
+                        <CheckCircle size={14} className="mt-0.5 shrink-0 text-green-500" />
                         {f}
                       </li>
                     ))}
                   </ul>
-
                   <a
-                    href={`https://wa.me/${WHATSAPP}?text=Hi%2C%20I%20want%20to%20book%20the%20${encodeURIComponent(pkg.name)}%20package`}
+                    href={`https://wa.me/${WHATSAPP}?text=Hi%2C%20I%20want%20to%20book%20the%20${encodeURIComponent(pkg.name)}%20package%20(${encodeURIComponent(pkg.duration)}).%20Please%20confirm%20availability.`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`mt-auto text-center font-bold py-3.5 rounded-xl text-sm transition-all duration-200 ${
-                      pkg.popular
-                        ? "bg-green-500 text-white hover:bg-green-600 shadow-[0_0_20px_rgba(34,197,94,0.3)]"
-                        : "border border-gray-300 text-gray-600 hover:border-green-500 hover:text-green-600 hover:bg-green-50"
-                    }`}
+                    className="mt-auto flex items-center justify-center gap-2 font-bold py-3.5 rounded-xl text-sm transition-all duration-200 bg-green-500 text-white hover:bg-green-400 shadow-[0_0_20px_rgba(34,197,94,0.15)] hover:shadow-[0_0_35px_rgba(34,197,94,0.4)]"
                   >
-                    Book This Package
+                    <MessageCircle size={16} />
+                    Book on WhatsApp
                   </a>
                 </div>
               </BlurFade>
             ))}
           </div>
+
+          <p className="text-center text-gray-600 text-sm mt-8 flex items-center justify-center gap-2">
+            <Shield size={14} className="text-green-500" />
+            Secure booking · Life jackets provided · Licensed operators · Instant confirmation
+          </p>
         </div>
       </section>
 
@@ -526,7 +544,6 @@ export default function Home() {
               </h2>
             </div>
           </BlurFade>
-
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {[
               {
@@ -565,16 +582,25 @@ export default function Home() {
       </section>
 
       {/* ─── TESTIMONIALS ─────────────────────────────────────────────────── */}
-      <section className="py-24 px-4">
+      <section className="py-24 px-4 bg-gray-950">
         <div className="max-w-5xl mx-auto">
           <BlurFade inView duration={0.6}>
             <div className="text-center mb-16">
-              <span className="text-xs font-bold text-green-600 uppercase tracking-[0.2em]">
+              <span className="text-xs font-bold text-green-400 uppercase tracking-[0.2em]">
                 Reviews
               </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-3 text-gray-900">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-3 text-white">
                 What Guests Say About Our Alleppey Speed Boat
               </h2>
+              <div className="flex items-center justify-center gap-3 mt-5">
+                <div className="flex gap-0.5">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} size={18} className="fill-yellow-400 text-yellow-400" />
+                  ))}
+                </div>
+                <span className="text-white font-black text-2xl">4.9</span>
+                <span className="text-gray-500 text-sm">from 1,200+ verified rides</span>
+              </div>
             </div>
           </BlurFade>
 
@@ -583,48 +609,67 @@ export default function Home() {
               {
                 name: "Arjun Menon",
                 location: "Bangalore",
+                initial: "A",
                 text: "Absolutely incredible. The 1-hour package is worth every rupee. The boat was fast, the views were stunning. Already planning a return trip.",
                 rating: 5,
               },
               {
                 name: "Priya & Rahul",
                 location: "Mumbai",
+                initial: "P",
                 text: "Booked via WhatsApp at 7am and were on the water by 9am. Super responsive team. The sunset ride was magical. Must-do for couples.",
                 rating: 5,
               },
               {
                 name: "Thomas George",
                 location: "Dubai",
+                initial: "T",
                 text: "Best experience in Alleppey by far. Way better than the typical houseboat tour. Pure adrenaline. Do the 2-hour charter — totally worth it.",
                 rating: 5,
               },
             ].map((review) => (
               <BlurFade key={review.name} inView duration={0.6} delay={0.05}>
-                <div className="relative bg-white border border-gray-200 rounded-2xl p-6 h-full flex flex-col hover:border-gray-300 hover:shadow-md transition-all duration-300">
-                  <div className="flex gap-0.5 mb-4">
+                <div className="relative bg-gray-900 border border-gray-800 rounded-2xl p-6 h-full flex flex-col hover:border-green-500/20 transition-all duration-300">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-full bg-green-500/15 border border-green-500/25 flex items-center justify-center text-green-400 font-black text-sm shrink-0">
+                      {review.initial}
+                    </div>
+                    <div>
+                      <p className="font-semibold text-white text-sm">{review.name}</p>
+                      <p className="text-gray-500 text-xs">{review.location} · Verified Guest</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-0.5 mb-3">
                     {[...Array(review.rating)].map((_, i) => (
-                      <Star key={i} size={13} className="fill-yellow-400 text-yellow-400" />
+                      <Star key={i} size={12} className="fill-yellow-400 text-yellow-400" />
                     ))}
                   </div>
-                  <p className="text-gray-500 text-sm leading-relaxed flex-1 mb-5">
+                  <p className="text-gray-300 text-sm leading-relaxed flex-1">
                     &ldquo;{review.text}&rdquo;
                   </p>
-                  <div>
-                    <p className="font-semibold text-gray-900 text-sm">{review.name}</p>
-                    <p className="text-gray-400 text-xs">{review.location}</p>
-                  </div>
                 </div>
               </BlurFade>
             ))}
           </div>
+
+          <BlurFade inView duration={0.6} delay={0.1}>
+            <div className="mt-10 text-center">
+              <a
+                href={`https://wa.me/${WHATSAPP}?text=Hi%2C%20I%20want%20to%20book%20a%20speed%20boat%20ride%20in%20Alleppey`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-400 text-white font-bold px-8 py-4 rounded-xl transition-all duration-200 text-base shadow-[0_0_30px_rgba(34,197,94,0.25)] hover:shadow-[0_0_50px_rgba(34,197,94,0.45)] hover:scale-[1.03]"
+              >
+                <MessageCircle size={18} />
+                Book Your Ride Now
+              </a>
+            </div>
+          </BlurFade>
         </div>
       </section>
 
       {/* ─── LOCATION ─────────────────────────────────────────────────────── */}
-      <section
-        className="py-24 px-4 bg-gray-50"
-        id="location"
-      >
+      <section className="py-24 px-4 bg-gray-50" id="location">
         <div className="max-w-5xl mx-auto">
           <BlurFade inView duration={0.6}>
             <div className="text-center mb-10">
@@ -635,12 +680,11 @@ export default function Home() {
                 Speed Boat Jetty – Punnamada Lake, Alleppey
               </h2>
               <p className="text-gray-400 mt-3 max-w-md mx-auto">
-                Find our speed boat jetty at Punnamada Lake, Alleppey (Alappuzha), Kerala — 3 km from town.
-                Easy to reach by auto-rickshaw or cab.
+                Find our speed boat jetty at Punnamada Lake, Alleppey (Alappuzha), Kerala — 3 km
+                from town. Easy to reach by auto-rickshaw or cab.
               </p>
             </div>
           </BlurFade>
-
           <div className="rounded-2xl overflow-hidden ring-1 ring-gray-200 shadow-lg">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3932.7!2d76.3282!3d9.4940!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b08906978a52ca7%3A0x3a26c2cf10abf65b!2sPunnamada%20Lake!5e0!3m2!1sen!2sin!4v1"
@@ -669,7 +713,6 @@ export default function Home() {
               </h2>
             </div>
           </BlurFade>
-
           <Accordion type="single" collapsible className="space-y-3">
             {[
               {
@@ -678,7 +721,7 @@ export default function Home() {
               },
               {
                 q: "How much does a speed boat ride cost in Alleppey?",
-                a: "Speed boat rides in Alleppey start from ₹1,000 for a 10-minute Quick Thrill (up to 3 people). The Full Rush (30 min, up to 7 people) is ₹3,000, and a Private Charter (1 hour, up to 7 people) is ₹6,000. All prices are fixed — no hidden charges.",
+                a: "Speed boat rides in Alleppey start from ₹1,000 for a 10-minute Quick Thrill (up to 3 persons); ₹300/person for groups of 4–7. The Full Rush (30 min) is ₹2,500 for up to 4 persons, or ₹3,000 flat for 5–7 persons. The Private Charter (1 hour) is ₹5,000 for up to 4 persons, or ₹6,000 flat for 5–7 persons. All prices are fixed — no hidden charges.",
               },
               {
                 q: "Where is the speed boat jetty in Alleppey?",
@@ -702,7 +745,7 @@ export default function Home() {
               },
               {
                 q: "How many people can ride at once?",
-                a: "Quick Thrill fits up to 3. Full Rush and Private Charter fit up to 7. No overloading — safety is non-negotiable.",
+                a: "All packages fit up to 7 persons. Quick Thrill: ₹1,000 for 3 persons, then ₹300 per extra person (4–7). Full Rush & Private Charter: flat rate for groups above 4. No overloading — safety is non-negotiable.",
               },
             ].map((item, i) => (
               <AccordionItem
@@ -723,34 +766,36 @@ export default function Home() {
       </section>
 
       {/* ─── FINAL CTA ────────────────────────────────────────────────────── */}
-      <section className="relative py-32 px-4 overflow-hidden bg-gray-50">
+      <section className="relative py-32 px-4 overflow-hidden bg-gray-950">
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="w-[700px] h-[350px] bg-green-500/8 rounded-full blur-3xl" />
+        </div>
         <div className="relative z-10 max-w-2xl mx-auto text-center">
           <BlurFade inView duration={0.6}>
-            <div className="w-16 h-16 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center mx-auto mb-8">
-              <Waves size={32} className="text-green-600" />
+            <div className="w-16 h-16 rounded-2xl bg-green-500/15 border border-green-500/25 flex items-center justify-center mx-auto mb-8">
+              <Waves size={32} className="text-green-400" />
             </div>
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-black mb-4 leading-tight text-gray-900">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-black mb-4 leading-tight text-white">
               Don&apos;t Leave Alleppey
               <br />
-              <span className="text-gray-400">Without This Rush.</span>
+              <span className="text-gray-600">Without This Rush.</span>
             </h2>
             <p className="text-gray-400 text-lg mb-10">
-              Punnamada Lake is waiting. WhatsApp us and you&apos;ll be on the
-              water in hours.
+              Punnamada Lake is waiting. WhatsApp us and you&apos;ll be on the water in hours.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href={`https://wa.me/${WHATSAPP}?text=Hi%2C%20I%20want%20to%20book%20a%20speed%20boat%20ride%20in%20Alleppey`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-3 bg-green-500 hover:bg-green-600 text-white font-bold px-10 py-4 rounded-xl transition-all duration-200 text-base shadow-[0_0_40px_rgba(34,197,94,0.3)] hover:shadow-[0_0_60px_rgba(34,197,94,0.5)]"
+                className="inline-flex items-center justify-center gap-3 bg-green-500 hover:bg-green-400 text-white font-bold px-10 py-4 rounded-xl transition-all duration-200 text-base shadow-[0_0_40px_rgba(34,197,94,0.3)] hover:shadow-[0_0_60px_rgba(34,197,94,0.5)] hover:scale-[1.03]"
               >
                 <MessageCircle size={22} />
                 WhatsApp Us Now
               </a>
               <a
                 href={`tel:${PHONE}`}
-                className="inline-flex items-center justify-center gap-3 border border-gray-300 hover:border-green-500 hover:text-green-600 hover:bg-green-50 text-gray-600 font-semibold px-10 py-4 rounded-xl transition-all duration-200 text-base"
+                className="inline-flex items-center justify-center gap-3 border border-gray-700 hover:border-green-500/40 hover:text-green-400 text-gray-300 font-semibold px-10 py-4 rounded-xl transition-all duration-200 text-base"
               >
                 <Phone size={22} />
                 +91 62389 51178
@@ -761,13 +806,16 @@ export default function Home() {
       </section>
 
       {/* ─── FOOTER ───────────────────────────────────────────────────────── */}
-      <footer className="border-t border-gray-200 py-10 px-4 text-center bg-white space-y-2">
-        <p className="text-gray-700 text-sm font-semibold">
+      <footer className="border-t border-gray-800 py-10 px-4 text-center bg-gray-950 space-y-2">
+        <p className="text-gray-400 text-sm font-semibold">
           Speed Boat in Alleppey · Punnamada Lake Jetty · Alappuzha, Kerala 688006
         </p>
-        <p className="text-gray-400 text-xs">
-          © {new Date().getFullYear()} Speedboat Tours Alleppey · Licensed & Certified Speed Boat Operator in Alleppey ·{" "}
-          <a href={`tel:${PHONE}`} className="hover:text-green-600 transition-colors">+91 62389 51178</a>
+        <p className="text-gray-600 text-xs">
+          © {new Date().getFullYear()} Alleppey Speed Boat Tours · Licensed & Certified Speed Boat
+          Operator in Alleppey ·{" "}
+          <a href={`tel:${PHONE}`} className="hover:text-green-400 transition-colors">
+            +91 62389 51178
+          </a>
         </p>
       </footer>
 
