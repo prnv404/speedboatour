@@ -281,6 +281,43 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ─── ABOUT / INTRO ──────────────────────────────────────────────── */}
+      <section className="py-20 px-4 bg-white" id="about">
+        <div className="max-w-4xl mx-auto">
+          <BlurFade inView duration={0.7}>
+            <div className="text-center mb-10">
+              <span className="text-xs font-bold text-green-600 uppercase tracking-[0.2em]">
+                About
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-black mt-3 text-gray-900">
+                The #1 Speed Boat in Alleppey
+              </h2>
+            </div>
+            <div className="prose prose-gray max-w-none text-gray-500 leading-relaxed space-y-4 text-base sm:text-lg text-center">
+              <p>
+                Looking for the best <strong className="text-gray-700">speed boat in Alleppey</strong>? You&apos;ve found it.
+                We operate private, high-speed boat rides on Punnamada Lake, Alappuzha — the iconic backwater stretch
+                made famous by the Nehru Trophy Boat Race. Our speed boats reach up to 60 km/h, giving you a rush
+                that no houseboat or shikara can come close to.
+              </p>
+              <p>
+                Whether you&apos;re a solo traveller, a couple on a honeymoon trip, or a group of friends looking for
+                an adrenaline-charged experience in Kerala, our <strong className="text-gray-700">speed boat ride in Alleppey</strong> is
+                the perfect add-on to your itinerary. Packages start from just ₹1,000 for a 10-minute loop and go
+                up to ₹6,000 for a 1-hour private charter.
+              </p>
+              <p>
+                We are a <strong className="text-gray-700">direct, licensed speed boat operator in Alleppey</strong> — not a middleman or
+                travel agency reseller. Every boat is owned and operated by us, departing from our jetty at
+                Punnamada Lake, just 3 km from Alleppey town. Safety is non-negotiable: every passenger gets a
+                coast guard approved life jacket, and our operators are fully certified by Kerala water transport
+                authorities.
+              </p>
+            </div>
+          </BlurFade>
+        </div>
+      </section>
+
       {/* ─── EXPERIENCE ───────────────────────────────────────────────────── */}
       <section className="py-24 px-4 max-w-6xl mx-auto">
         <div className="grid md:grid-cols-2 gap-16 items-center">
@@ -491,23 +528,23 @@ export default function Home() {
             {[
               {
                 icon: Anchor,
-                title: "Local Operator",
-                desc: "We own every boat. Not a reseller. Direct from Punnamada jetty.",
+                title: "Direct Local Operator",
+                desc: "We own every speed boat in Alleppey. No resellers, no middlemen. Book direct from our Punnamada Lake jetty.",
               },
               {
                 icon: Shield,
                 title: "Safety First",
-                desc: "Licensed operators. Coast guard approved life jackets. Zero compromise.",
+                desc: "All Alleppey speed boat rides are by licensed, certified operators with coast guard approved life jackets. Zero compromise.",
               },
               {
                 icon: CheckCircle,
                 title: "No Hidden Fees",
-                desc: "The price listed is the price paid. Always.",
+                desc: "Speed boat ride prices in Alleppey are exactly what you see. No commissions, no add-ons. Always.",
               },
               {
                 icon: Zap,
                 title: "Book in 2 min",
-                desc: "One WhatsApp message and you're confirmed. No forms, no waiting.",
+                desc: "One WhatsApp message and your Alleppey speed boat is confirmed. No forms, no waiting, no middlemen.",
               },
             ].map(({ icon: Icon, title, desc }) => (
               <BlurFade key={title} inView duration={0.6} delay={0.05}>
@@ -721,10 +758,13 @@ export default function Home() {
       </section>
 
       {/* ─── FOOTER ───────────────────────────────────────────────────────── */}
-      <footer className="border-t border-gray-200 py-8 px-4 text-center bg-white">
-        <p className="text-gray-400 text-sm">
-          © {new Date().getFullYear()} Speedboat Tours Alleppey · Punnamada Lake,
-          Alappuzha, Kerala 688006
+      <footer className="border-t border-gray-200 py-10 px-4 text-center bg-white space-y-2">
+        <p className="text-gray-700 text-sm font-semibold">
+          Speed Boat in Alleppey · Punnamada Lake Jetty · Alappuzha, Kerala 688006
+        </p>
+        <p className="text-gray-400 text-xs">
+          © {new Date().getFullYear()} Speedboat Tours Alleppey · Licensed & Certified Speed Boat Operator in Alleppey ·{" "}
+          <a href={`tel:${PHONE}`} className="hover:text-green-600 transition-colors">+91 62389 51178</a>
         </p>
       </footer>
 
