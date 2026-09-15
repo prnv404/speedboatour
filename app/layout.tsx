@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://speedboatour.in"),
   title: "Speed Boat in Alleppey – Fast Rides at Punnamada Lake | Book Now",
   description:
-    "Book a speed boat in Alleppey at Punnamada Lake. Private high-speed rides from ₹1,000. 1,200+ happy guests, 4.9★ rated. Book instantly via WhatsApp or call now.",
+    "Book a speed boat in Alleppey at Punnamada Lake. Private high-speed rides from ₹1,000. 1,200+ happy guests, 5★ rated. Book instantly via WhatsApp or call now.",
   keywords: [
     "speed boat in alleppey",
     "speed boat alleppey",
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Speed Boat in Alleppey – Fast Rides at Punnamada Lake",
     description:
-      "Book a speed boat in Alleppey at Punnamada Lake. Private high-speed rides from ₹1,000. 1,200+ happy guests, 4.9★ rated.",
+      "Book a speed boat in Alleppey at Punnamada Lake. Private high-speed rides from ₹1,000. 1,200+ happy guests, 5★ rated.",
     images: ["/images/hero1.jpeg"],
   },
   alternates: {

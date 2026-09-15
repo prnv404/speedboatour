@@ -1,4 +1,6 @@
+"use client";
 import Image from "next/image";
+import { useState, useEffect } from "react";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { FocusCards } from "@/components/ui/focus-cards";
 import {
@@ -18,6 +20,8 @@ import {
   Anchor,
   Waves,
   Users,
+  Menu,
+  X,
 } from "lucide-react";
 
 const PHONE = "+916238951178";
@@ -59,7 +63,7 @@ const packages = [
     extraPrice: "₹3,000",
     extraSub: "flat rate for 5–7 persons",
     maxCapacity: "7",
-    badge: "Most Booked" as string | null,
+    badge: null as string | null,
     features: [
       "Extended backwater route",
       "Photo stops at scenic spots",
@@ -89,14 +93,17 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": ["TouristAttraction", "LocalBusiness"],
   name: "Alleppey Speed Boat Tours",
-  sameAs: ["https://share.google/yuSHFGPIllIIMpXJa"],
+  sameAs: [
+    "https://share.google/yuSHFGPIllIIMpXJa",
+    "https://share.google/w8uocoHZNqc3ywXyg",
+  ],
   image: [
     "https://speedboatour.in/images/hero1.jpeg",
     "https://speedboatour.in/images/hero2.jpeg",
     "https://speedboatour.in/images/gallery-1.jpeg",
   ],
   description:
-    "Book a speed boat in Alleppey at Punnamada Lake. Private high-speed backwater rides from ₹1,000. 1,200+ happy guests, 4.9★ rated. Licensed & experienced operators.",
+    "Book a speed boat in Alleppey at Punnamada Lake. Private high-speed backwater rides from ₹1,000. 1,200+ happy guests, 5★ rated. Licensed & experienced operators.",
   url: "https://speedboatour.in",
   telephone: "+91 62389 51178",
   priceRange: "₹1000 – ₹6000",
@@ -115,7 +122,7 @@ const jsonLd = {
   geo: { "@type": "GeoCoordinates", latitude: "9.4940", longitude: "76.3282" },
   aggregateRating: {
     "@type": "AggregateRating",
-    ratingValue: "4.9",
+    ratingValue: "5",
     reviewCount: "1200",
     bestRating: "5",
     worstRating: "1",
@@ -200,6 +207,35 @@ const faqJsonLd = {
 };
 
 export default function Home() {
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [justScrolled, setJustScrolled] = useState(false);
+
+  useEffect(() => {
+    let prev = false;
+    const onScroll = () => {
+      const now = window.scrollY > 60;
+      if (now && !prev) setJustScrolled(true);
+      if (!now) setJustScrolled(false);
+      prev = now;
+      setScrolled(now);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Close mobile menu on scroll
+  useEffect(() => {
+    if (scrolled) setMobileOpen(false);
+  }, [scrolled]);
+
+  const navLinks = [
+    { label: "Experience", href: "#about" },
+    { label: "Pricing", href: "#pricing" },
+    { label: "Gallery", href: "#gallery" },
+    { label: "Location", href: "#location" },
+  ];
+
   return (
     <main className="min-h-screen bg-white text-gray-900 font-sans overflow-x-hidden">
       <script
@@ -211,119 +247,357 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
-      {/* ─── ANNOUNCEMENT BAR ──────────────────────────────────────────────── */}
-      <div className="bg-green-600 text-white text-center py-2.5 px-4 text-xs sm:text-sm font-semibold">
-        <span className="inline-flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-white/80 animate-pulse shrink-0" />
-          Weekend slots filling fast —{" "}
-          <a
-            href={`https://wa.me/${WHATSAPP}?text=Hi%2C%20I%20want%20to%20book%20a%20speed%20boat%20ride%20in%20Alleppey`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline underline-offset-2 hover:no-underline ml-1"
+      {/* ─── PREMIUM FLOATING NAVBAR ──────────────────────────────────────── */}
+      <div className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
+        scrolled ? "px-3 sm:px-5 pt-3" : "px-4 sm:px-8 pt-4"
+      }`}>
+        <header
+          className={`relative overflow-hidden transition-all duration-500 ease-out ${
+            scrolled
+              ? [
+                  // Entrance animation
+                  justScrolled ? "navbar-enter" : "",
+                  // Glass sweep shimmer
+                  "glass-sweep",
+                  // Premium layered glass background
+                  "bg-gradient-to-b from-white/[0.08] to-white/[0.04]",
+                  // Strong blur
+                  "backdrop-blur-2xl",
+                  // Subtle border
+                  "border-b border-white/10",
+                  // Deep shadow
+                  "shadow-[0_4px_60px_rgba(0,0,0,0.6),0_1px_0_rgba(255,255,255,0.06)_inset]",
+                  "rounded-xl",
+                  // Dark base via ::before (done via inline style below)
+                ].join(" ")
+              : "bg-white/5 backdrop-blur-md border border-white/15 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.3)]"
+          }`}
+          style={scrolled ? { backgroundColor: "rgba(8,8,12,0.75)" } : {}}
+        >
+          <nav
+            className={`flex items-center justify-between transition-all duration-500 ${
+              scrolled
+                ? "max-w-none px-5 sm:px-8 h-[52px]"
+                : "px-5 sm:px-6 h-[52px]"
+            }`}
+            aria-label="Main navigation"
           >
-            WhatsApp us now to confirm yours →
-          </a>
-        </span>
+            {/* — Brand lockup — */}
+            <a
+              href="/"
+              className="flex items-center gap-2.5 group shrink-0"
+              aria-label="Alleppey Speed Boat Tours home"
+            >
+              <div className="relative w-8 h-8 rounded-xl bg-gradient-to-br from-green-400/30 to-emerald-600/20 border border-green-400/40 flex items-center justify-center group-hover:border-green-400/70 transition-all duration-200 shadow-[0_0_12px_rgba(34,197,94,0.2)]">
+                <Waves size={15} className="text-green-400" />
+              </div>
+              <div className="hidden sm:flex flex-col leading-none">
+                <span className="text-white font-black text-[13px] tracking-tight">
+                  Alleppey <span className="text-green-400">SpeedBoat</span>
+                </span>
+                <span className="text-white/35 text-[9px] font-semibold tracking-[0.15em] uppercase">Punnamada Lake</span>
+              </div>
+            </a>
+
+            {/* — Desktop nav links — */}
+            <div className="hidden md:flex items-center gap-1">
+              {navLinks.map(({ label, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  className="relative group px-3.5 py-1.5 text-white/55 hover:text-white text-[13px] font-medium transition-colors duration-150 rounded-lg hover:bg-white/8"
+                >
+                  {label}
+                  <span className="absolute bottom-0.5 left-3.5 right-3.5 h-px bg-green-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left rounded-full" />
+                </a>
+              ))}
+            </div>
+
+            {/* — Right side: phone + CTA + hamburger — */}
+            <div className="flex items-center gap-2.5">
+              {/* Phone — desktop only */}
+              <a
+                href={`tel:${PHONE}`}
+                className="hidden lg:flex items-center gap-1.5 text-white/45 hover:text-white/80 text-[12px] font-medium transition-colors duration-150 pr-2.5 border-r border-white/10"
+              >
+                <Phone size={12} className="shrink-0" />
+                +91 62389 51178
+              </a>
+
+              {/* WhatsApp CTA */}
+              <a
+                href={`https://wa.me/${WHATSAPP}?text=Hi%2C%20I%20want%20to%20book%20a%20speed%20boat%20ride%20in%20Alleppey`}
+                target="_blank"
+                rel="noopener noreferrer"
+                id="nav-whatsapp-cta"
+                className="inline-flex items-center gap-1.5 bg-green-500 hover:bg-green-400 text-white font-bold text-[13px] px-4 py-2 rounded-xl transition-all duration-200 shadow-[0_0_18px_rgba(34,197,94,0.45)] hover:shadow-[0_0_28px_rgba(34,197,94,0.7)] hover:scale-[1.05] active:scale-[0.96]"
+              >
+                <MessageCircle size={14} className="shrink-0" />
+                <span className="hidden sm:inline">Book Now</span>
+                <span className="sm:hidden">Book</span>
+              </a>
+
+              {/* Mobile hamburger */}
+              <button
+                onClick={() => setMobileOpen(!mobileOpen)}
+                aria-label={mobileOpen ? "Close menu" : "Open menu"}
+                className="md:hidden w-9 h-9 flex items-center justify-center rounded-xl border border-white/20 hover:border-white/40 hover:bg-white/10 text-white transition-all duration-200"
+              >
+                {mobileOpen ? <X size={17} /> : <Menu size={17} />}
+              </button>
+            </div>
+          </nav>
+
+          {/* ── Animated green bottom border glow ── */}
+          {scrolled && (
+            <div className="absolute bottom-0 left-0 right-0 h-px overflow-hidden">
+              <div className="navbar-border-glow absolute inset-0 bg-gradient-to-r from-transparent via-green-400/70 to-transparent" />
+            </div>
+          )}
+
+          {/* — Mobile dropdown — */}
+          <div
+            className={`md:hidden overflow-hidden transition-all duration-300 ${
+              mobileOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"
+            }`}
+          >
+            <div className="px-4 pb-4 pt-1 flex flex-col gap-1 border-t border-white/10">
+              {navLinks.map(({ label, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  onClick={() => setMobileOpen(false)}
+                  className="px-3 py-2.5 text-white/70 hover:text-white hover:bg-white/8 text-sm font-medium rounded-xl transition-all duration-150"
+                >
+                  {label}
+                </a>
+              ))}
+              <a
+                href={`tel:${PHONE}`}
+                className="flex items-center gap-2 px-3 py-2.5 text-white/50 hover:text-white/80 text-sm font-medium rounded-xl transition-all duration-150"
+              >
+                <Phone size={13} className="shrink-0" />
+                +91 62389 51178
+              </a>
+            </div>
+          </div>
+        </header>
       </div>
 
       {/* ─── HERO ─────────────────────────────────────────────────────────── */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[100svh] flex items-end overflow-hidden" aria-label="Hero">
+        {/* ── Background image + layered gradients ── */}
         <div className="absolute inset-0">
           <Image
-            src="/images/hero4.jpeg"
-            alt="Speed boat cutting through Punnamada Lake at high speed"
+            src="/images/hero1.jpeg"
+            alt="Speed boat cutting through Punnamada Lake at high speed, Alleppey Kerala"
             fill
             priority
-            className="object-cover object-center"
+            className="object-cover object-center scale-105"
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/55 to-black/25" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/20" />
+          {/* Cinematic gradient stack */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/20 to-transparent" />
+          {/* Subtle vignette */}
+          <div className="absolute inset-0 bg-radial-[ellipse_80%_60%_at_50%_50%] from-transparent to-black/40" />
         </div>
 
-        <div className="relative z-10 text-center px-4 max-w-5xl mx-auto pt-24 pb-32">
-          <BlurFade delay={0} duration={0.6}>
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-8 text-xs sm:text-sm">
+        {/* ── Animated SVG speed-lines overlay ── */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <svg
+            className="absolute right-0 top-0 w-1/2 h-full opacity-20"
+            viewBox="0 0 400 800"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            {[
+              { y: 120, w: 180, delay: "0s" },
+              { y: 200, w: 240, delay: "0.4s" },
+              { y: 310, w: 130, delay: "0.8s" },
+              { y: 420, w: 200, delay: "1.2s" },
+              { y: 540, w: 160, delay: "1.6s" },
+              { y: 650, w: 220, delay: "2.0s" },
+            ].map(({ y, w, delay }, i) => (
+              <line
+                key={i}
+                x1={400 - w}
+                y1={y}
+                x2="400"
+                y2={y}
+                stroke="white"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                className="speed-line"
+                style={{ animationDelay: delay }}
+              />
+            ))}
+          </svg>
+        </div>
+
+        {/* ── Floating glassmorphic stat chips ── */}
+        <div className="absolute top-1/4 right-4 md:right-12 lg:right-20 flex flex-col gap-3 md:gap-4 z-20 hidden sm:flex">
+          <a
+            href="https://share.google/w8uocoHZNqc3ywXyg"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="See our Google reviews"
+            className="stat-chip-float backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl px-4 py-3 md:px-5 md:py-3.5 text-white shadow-xl hover:bg-white/15 hover:border-yellow-400/40 transition-all duration-200 cursor-pointer block"
+          >
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-xl bg-yellow-400/20 border border-yellow-400/30 flex items-center justify-center">
+                <Star size={14} className="fill-yellow-400 text-yellow-400" />
+              </div>
+              <div>
+                <p className="text-[10px] uppercase tracking-widest text-white/50 font-semibold">Google Rating</p>
+                <p className="text-lg font-black leading-none">5.0★</p>
+              </div>
+            </div>
+          </a>
+          <div className="stat-chip-float-2 backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl px-4 py-3 md:px-5 md:py-3.5 text-white shadow-xl">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-xl bg-green-400/20 border border-green-400/30 flex items-center justify-center">
+                <Users size={14} className="text-green-400" />
+              </div>
+              <div>
+                <p className="text-[10px] uppercase tracking-widest text-white/50 font-semibold">Happy Riders</p>
+                <p className="text-lg font-black leading-none">1,200+</p>
+              </div>
+            </div>
+          </div>
+          <div className="stat-chip-float-3 backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl px-4 py-3 md:px-5 md:py-3.5 text-white shadow-xl">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-xl bg-emerald-400/20 border border-emerald-400/30 flex items-center justify-center">
+                <Zap size={14} className="text-emerald-400" />
+              </div>
+              <div>
+                <p className="text-[10px] uppercase tracking-widest text-white/50 font-semibold">Starts From</p>
+                <p className="text-lg font-black leading-none">₹1,000</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Hero content — left-aligned editorial layout ── */}
+        <div className="relative z-10 w-full max-w-6xl mx-auto px-5 sm:px-10 pb-28 sm:pb-24 pt-32 sm:pt-40">
+          <BlurFade delay={0} duration={0.5}>
+            {/* Rating pill */}
+            <div className="inline-flex items-center gap-2.5 badge-glow bg-green-500/15 backdrop-blur-sm border border-green-500/35 rounded-full px-4 py-1.5 mb-8">
+              <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse shrink-0" />
               <div className="flex gap-0.5">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} size={11} className="fill-yellow-400 text-yellow-400" />
+                  <Star key={i} size={10} className="fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
-              <span className="text-white font-semibold">
-                4.9★ · Alleppey&apos;s #1 Speed Boat · 1,200+ Rides
+              <span className="text-white text-xs font-bold tracking-wide">
+                Alleppey&apos;s #1 Speed Boat · 5.0★ on Google
               </span>
             </div>
           </BlurFade>
 
           <BlurFade delay={0.1} duration={0.7}>
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tight mb-6">
-              <span className="block text-white">Speed Boat</span>
-              <span className="block bg-gradient-to-r from-green-400 via-emerald-300 to-green-500 bg-clip-text text-transparent">
+            <h1 className="font-black leading-[0.88] tracking-tight mb-6 max-w-3xl">
+              {/* Eyebrow line */}
+              <span className="block text-white/50 text-sm sm:text-xl md:text-2xl font-semibold tracking-[0.12em] uppercase mb-2 sm:mb-3">
+                Punnamada Lake · Alleppey
+              </span>
+              {/* Main headline */}
+              <span className="block text-white text-[clamp(2.6rem,10vw,6.5rem)]">
+                Speed Boat
+              </span>
+              <span className="block text-[clamp(2.6rem,10vw,6.5rem)] bg-gradient-to-r from-green-400 via-emerald-300 to-teal-400 bg-clip-text text-transparent">
                 in Alleppey.
               </span>
-              <span className="block text-white/90 text-4xl sm:text-5xl md:text-6xl font-bold mt-2">
-                60 km/h across Punnamada Lake.
+              {/* Sub-line */}
+              <span className="block text-white/80 text-[clamp(1.1rem,4vw,2.5rem)] font-bold mt-2 sm:mt-3">
+                60 km/h across the backwaters.
               </span>
             </h1>
           </BlurFade>
 
           <BlurFade delay={0.25} duration={0.6}>
-            <p className="text-white/70 text-lg sm:text-xl max-w-xl mx-auto mb-10 leading-relaxed">
-              Private, high-speed backwater rides from ₹1,000. No crowds. No slow pace. Just the
-              backwaters at full throttle.
+            <p className="text-white/60 text-sm sm:text-lg max-w-lg mb-7 sm:mb-10 leading-relaxed">
+              Private, high-speed rides on Kerala&apos;s iconic Punnamada Lake.
+              From ₹1,000. No crowds. No slow pace. Pure adrenaline.
             </p>
           </BlurFade>
 
-          <BlurFade delay={0.4} duration={0.6}>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+          {/* CTA row */}
+          <BlurFade delay={0.38} duration={0.6}>
+            <div className="flex flex-col sm:flex-row gap-3 mb-7 sm:mb-10">
+              {/* Primary — shimmer CTA */}
               <a
                 href={`https://wa.me/${WHATSAPP}?text=Hi%2C%20I%20want%20to%20book%20a%20speed%20boat%20ride%20in%20Alleppey`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center gap-2.5 bg-green-500 hover:bg-green-400 text-white font-bold px-8 py-4 rounded-xl transition-all duration-200 text-base shadow-[0_0_40px_rgba(34,197,94,0.5)] hover:shadow-[0_0_60px_rgba(34,197,94,0.7)] hover:scale-[1.03]"
+                id="hero-whatsapp-cta"
+                className="btn-shimmer relative overflow-hidden group inline-flex items-center justify-center gap-2.5 bg-green-500 hover:bg-green-400 text-white font-black px-6 sm:px-8 py-4 rounded-2xl transition-all duration-200 text-sm sm:text-base shadow-[0_4px_40px_rgba(34,197,94,0.55)] hover:shadow-[0_4px_60px_rgba(34,197,94,0.8)] hover:scale-[1.04] active:scale-[0.98]"
               >
-                <MessageCircle size={20} />
-                Book on WhatsApp — Instant Confirm
+                <MessageCircle size={18} className="shrink-0" />
+                <span className="hidden sm:inline">Book on WhatsApp — Instant Confirm</span>
+                <span className="sm:hidden">Book on WhatsApp</span>
+                <span className="absolute right-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-1 transition-all duration-200 text-lg">→</span>
               </a>
+              {/* Secondary — ghost */}
               <a
                 href={`tel:${PHONE}`}
-                className="inline-flex items-center justify-center gap-2.5 border border-white/40 hover:border-white/70 hover:bg-white/10 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-200 text-base backdrop-blur-sm"
+                id="hero-call-cta"
+                className="inline-flex items-center justify-center gap-2.5 border border-white/30 hover:border-white/60 hover:bg-white/8 text-white font-semibold px-6 sm:px-8 py-4 rounded-2xl transition-all duration-200 text-sm sm:text-base backdrop-blur-sm"
               >
-                <Phone size={20} />
+                <Phone size={20} className="shrink-0" />
                 Call to Book
               </a>
             </div>
           </BlurFade>
 
+          {/* Trust badges */}
           <BlurFade delay={0.5} duration={0.6}>
-            <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-white/50">
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[11px] text-white/45">
               {[
-                "Licensed & certified operators",
-                "Life jackets for all",
-                "No hidden charges",
-                "Instant WhatsApp confirmation",
-              ].map((t) => (
-                <span key={t} className="flex items-center gap-1.5 font-medium">
-                  <CheckCircle size={11} className="text-green-400 shrink-0" />
-                  {t}
+                { icon: Shield, label: "Licensed & certified" },
+                { icon: Anchor, label: "Life jackets for all" },
+                { icon: CheckCircle, label: "No hidden charges" },
+                { icon: Zap, label: "Instant confirmation" },
+              ].map(({ icon: Icon, label }) => (
+                <span key={label} className="flex items-center gap-1.5 font-semibold">
+                  <Icon size={10} className="text-green-400 shrink-0" />
+                  {label}
                 </span>
               ))}
             </div>
           </BlurFade>
         </div>
 
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-white/40 text-xs">
-          <span className="tracking-widest uppercase text-[10px]">Scroll</span>
-          <div className="w-px h-8 bg-gradient-to-b from-white/40 to-transparent animate-pulse" />
+        {/* ── Scroll indicator — sits above the wave ── */}
+        <div className="absolute bottom-20 left-1/2 scroll-caret flex flex-col items-center gap-2 text-white/35 text-[10px] tracking-[0.25em] uppercase z-10">
+          <span>Scroll</span>
+          <svg width="14" height="8" viewBox="0 0 14 8" fill="none" aria-hidden="true">
+            <path d="M1 1L7 7L13 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </div>
+
+        {/* ── Wave SVG divider ── */}
+        <div className="absolute bottom-0 left-0 right-0 z-10 pointer-events-none leading-none">
+          <svg
+            viewBox="0 0 1440 80"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="none"
+            className="w-full h-16 sm:h-20"
+            aria-hidden="true"
+          >
+            <path
+              d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,80 L0,80 Z"
+              fill="white"
+            />
+          </svg>
         </div>
       </section>
 
       {/* ─── STATS BAR ────────────────────────────────────────────────────── */}
-      <section className="border-y border-gray-100 bg-white py-8 px-4">
-        <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <section className="border-y border-gray-100 bg-white py-6 sm:py-8 px-4">
+        <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-5 sm:gap-8 text-center">
           {[
-            { icon: Star, label: "Guest Rating", value: "4.9★" },
+            { icon: Star, label: "Google Rating", value: "5.0★" },
             { icon: Users, label: "Rides Done", value: "1,200+" },
             { icon: MapPin, label: "Location", value: "Punnamada" },
             { icon: Zap, label: "Starts From", value: "₹1,000" },
@@ -340,18 +614,18 @@ export default function Home() {
       </section>
 
       {/* ─── ABOUT / INTRO ──────────────────────────────────────────────── */}
-      <section className="py-20 px-4 bg-white" id="about">
+      <section className="py-14 sm:py-20 px-4 bg-white" id="about">
         <div className="max-w-4xl mx-auto">
           <BlurFade inView duration={0.7}>
             <div className="text-center mb-10">
               <span className="text-xs font-bold text-green-600 uppercase tracking-[0.2em]">
                 About
               </span>
-              <h2 className="text-3xl sm:text-4xl font-black mt-3 text-gray-900">
+              <h2 className="text-2xl sm:text-4xl font-black mt-3 text-gray-900">
                 The #1 Speed Boat in Alleppey
               </h2>
             </div>
-            <div className="prose prose-gray max-w-none text-gray-500 leading-relaxed space-y-4 text-base sm:text-lg text-center">
+            <div className="prose prose-gray max-w-none text-gray-500 leading-relaxed space-y-4 text-sm sm:text-base md:text-lg text-center">
               <p>
                 Looking for the best{" "}
                 <strong className="text-gray-700">speed boat in Alleppey</strong>? You&apos;ve
@@ -383,21 +657,21 @@ export default function Home() {
       </section>
 
       {/* ─── EXPERIENCE ───────────────────────────────────────────────────── */}
-      <section className="py-24 px-4 max-w-6xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-16 items-center">
+      <section className="py-14 sm:py-24 px-4 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
           <BlurFade inView delay={0} duration={0.7}>
             <div>
               <span className="text-xs font-bold text-green-600 uppercase tracking-[0.2em]">
                 The Experience
               </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-3 mb-6 leading-tight text-gray-900">
+              <h2 className="text-2xl sm:text-4xl md:text-5xl font-black mt-3 mb-4 sm:mb-6 leading-tight text-gray-900">
                 Not a Cruise.
                 <br />
                 <span className="text-gray-400">
                   The Best Speed Boat Ride in Alleppey.
                 </span>
               </h2>
-              <p className="text-gray-500 mb-8 leading-relaxed text-lg">
+              <p className="text-gray-500 mb-6 sm:mb-8 leading-relaxed text-sm sm:text-lg">
                 Punnamada Lake looks calm — until you&apos;re on a speed boat in Alleppey slicing
                 through it at full throttle. The backwaters blur. The wind hits. For a few minutes,
                 there&apos;s nothing else.
@@ -440,14 +714,14 @@ export default function Home() {
       </section>
 
       {/* ─── PRICING ──────────────────────────────────────────────────────── */}
-      <section className="py-24 px-4 bg-gray-50" id="pricing">
+      <section className="py-14 sm:py-24 px-4 bg-gray-50" id="pricing">
         <div className="max-w-5xl mx-auto">
           <BlurFade inView duration={0.6}>
             <div className="text-center mb-16">
               <span className="text-xs font-bold text-green-600 uppercase tracking-[0.2em]">
                 Pricing
               </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-3 text-gray-900">
+              <h2 className="text-2xl sm:text-4xl md:text-5xl font-black mt-3 text-gray-900">
                 Speed Boat Ride Prices in Alleppey
               </h2>
               <p className="text-gray-500 mt-3 text-base">
@@ -460,10 +734,10 @@ export default function Home() {
             </div>
           </BlurFade>
 
-          <div className="grid sm:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
             {packages.map((pkg) => (
               <BlurFade key={pkg.name} inView duration={0.6} delay={0.05}>
-                <div className="relative rounded-2xl bg-white border border-gray-200 p-7 flex flex-col h-full hover:border-green-500/50 hover:shadow-lg transition-all duration-300 group">
+                <div className="relative rounded-2xl bg-white border border-gray-200 p-5 sm:p-7 flex flex-col h-full hover:border-green-500/50 hover:shadow-lg transition-all duration-300 group">
                   {pkg.badge && (
                     <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-green-500 text-white text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-widest whitespace-nowrap">
                       {pkg.badge}
@@ -515,14 +789,14 @@ export default function Home() {
       </section>
 
       {/* ─── GALLERY ──────────────────────────────────────────────────────── */}
-      <section className="py-24 px-4">
+      <section className="py-14 sm:py-24 px-4" id="gallery">
         <div className="max-w-6xl mx-auto">
           <BlurFade inView duration={0.6}>
             <div className="text-center mb-16">
               <span className="text-xs font-bold text-green-600 uppercase tracking-[0.2em]">
                 Gallery
               </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-3 text-gray-900">
+              <h2 className="text-2xl sm:text-4xl md:text-5xl font-black mt-3 text-gray-900">
                 Speed Boat in Alleppey – Real Footage
               </h2>
             </div>
@@ -532,14 +806,14 @@ export default function Home() {
       </section>
 
       {/* ─── WHY CHOOSE US ────────────────────────────────────────────────── */}
-      <section className="py-24 px-4 bg-gray-50">
+      <section className="py-14 sm:py-24 px-4 bg-gray-50">
         <div className="max-w-5xl mx-auto">
           <BlurFade inView duration={0.6}>
             <div className="text-center mb-16">
               <span className="text-xs font-bold text-green-600 uppercase tracking-[0.2em]">
                 Why Us
               </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-3 text-gray-900">
+              <h2 className="text-2xl sm:text-4xl md:text-5xl font-black mt-3 text-gray-900">
                 Why We&apos;re Alleppey&apos;s #1 Speed Boat Operator
               </h2>
             </div>
@@ -582,14 +856,14 @@ export default function Home() {
       </section>
 
       {/* ─── TESTIMONIALS ─────────────────────────────────────────────────── */}
-      <section className="py-24 px-4 bg-gray-950">
+      <section className="py-14 sm:py-24 px-4 bg-gray-950">
         <div className="max-w-5xl mx-auto">
           <BlurFade inView duration={0.6}>
             <div className="text-center mb-16">
               <span className="text-xs font-bold text-green-400 uppercase tracking-[0.2em]">
                 Reviews
               </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-3 text-white">
+              <h2 className="text-2xl sm:text-4xl md:text-5xl font-black mt-3 text-white">
                 What Guests Say About Our Alleppey Speed Boat
               </h2>
               <div className="flex items-center justify-center gap-3 mt-5">
@@ -598,13 +872,19 @@ export default function Home() {
                     <Star key={i} size={18} className="fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
-                <span className="text-white font-black text-2xl">4.9</span>
+                <a
+                  href="https://share.google/w8uocoHZNqc3ywXyg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white font-black text-2xl hover:text-yellow-400 transition-colors"
+                  title="View our Google reviews"
+                >5.0</a>
                 <span className="text-gray-500 text-sm">from 1,200+ verified rides</span>
               </div>
             </div>
           </BlurFade>
 
-          <div className="grid sm:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
             {[
               {
                 name: "Arjun Menon",
@@ -669,14 +949,14 @@ export default function Home() {
       </section>
 
       {/* ─── LOCATION ─────────────────────────────────────────────────────── */}
-      <section className="py-24 px-4 bg-gray-50" id="location">
+      <section className="py-14 sm:py-24 px-4 bg-gray-50" id="location">
         <div className="max-w-5xl mx-auto">
           <BlurFade inView duration={0.6}>
             <div className="text-center mb-10">
               <span className="text-xs font-bold text-green-600 uppercase tracking-[0.2em]">
                 Location
               </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-3 text-gray-900">
+              <h2 className="text-2xl sm:text-4xl md:text-5xl font-black mt-3 text-gray-900">
                 Speed Boat Jetty – Punnamada Lake, Alleppey
               </h2>
               <p className="text-gray-400 mt-3 max-w-md mx-auto">
@@ -687,28 +967,28 @@ export default function Home() {
           </BlurFade>
           <div className="rounded-2xl overflow-hidden ring-1 ring-gray-200 shadow-lg">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3932.7!2d76.3282!3d9.4940!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b08906978a52ca7%3A0x3a26c2cf10abf65b!2sPunnamada%20Lake!5e0!3m2!1sen!2sin!4v1"
+              src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7804.3375796548635!2d76.35300370060168!3d9.499471220289266!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1789444690109!5m2!1sen!2sin"
               width="100%"
-              height="420"
+              className="h-[260px] sm:h-[380px] md:h-[420px]"
               style={{ border: 0 }}
               allowFullScreen
               loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Punnamada Lake Alleppey map"
+              referrerPolicy="strict-origin-when-cross-origin"
+              title="Alleppey Speed Boat Tours – Punnamada Lake location"
             />
           </div>
         </div>
       </section>
 
       {/* ─── FAQ ──────────────────────────────────────────────────────────── */}
-      <section className="py-24 px-4" id="faq">
+      <section className="py-14 sm:py-24 px-4" id="faq">
         <div className="max-w-2xl mx-auto">
           <BlurFade inView duration={0.6}>
             <div className="text-center mb-16">
               <span className="text-xs font-bold text-green-600 uppercase tracking-[0.2em]">
                 FAQ
               </span>
-              <h2 className="text-3xl sm:text-4xl font-black mt-3 text-gray-900">
+              <h2 className="text-2xl sm:text-4xl font-black mt-3 text-gray-900">
                 Speed Boat in Alleppey – FAQs
               </h2>
             </div>
@@ -766,7 +1046,7 @@ export default function Home() {
       </section>
 
       {/* ─── FINAL CTA ────────────────────────────────────────────────────── */}
-      <section className="relative py-32 px-4 overflow-hidden bg-gray-950">
+      <section className="relative py-20 sm:py-32 px-4 overflow-hidden bg-gray-950">
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div className="w-[700px] h-[350px] bg-green-500/8 rounded-full blur-3xl" />
         </div>
@@ -775,15 +1055,15 @@ export default function Home() {
             <div className="w-16 h-16 rounded-2xl bg-green-500/15 border border-green-500/25 flex items-center justify-center mx-auto mb-8">
               <Waves size={32} className="text-green-400" />
             </div>
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-black mb-4 leading-tight text-white">
+            <h2 className="text-3xl sm:text-5xl md:text-6xl font-black mb-4 leading-tight text-white">
               Don&apos;t Leave Alleppey
               <br />
               <span className="text-gray-600">Without This Rush.</span>
             </h2>
-            <p className="text-gray-400 text-lg mb-10">
+            <p className="text-gray-400 text-sm sm:text-lg mb-7 sm:mb-10">
               Punnamada Lake is waiting. WhatsApp us and you&apos;ll be on the water in hours.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
               <a
                 href={`https://wa.me/${WHATSAPP}?text=Hi%2C%20I%20want%20to%20book%20a%20speed%20boat%20ride%20in%20Alleppey`}
                 target="_blank"
@@ -806,7 +1086,7 @@ export default function Home() {
       </section>
 
       {/* ─── FOOTER ───────────────────────────────────────────────────────── */}
-      <footer className="border-t border-gray-800 py-10 px-4 text-center bg-gray-950 space-y-2">
+      <footer className="border-t border-gray-800 py-10 px-4 pb-[calc(2.5rem+env(safe-area-inset-bottom))] text-center bg-gray-950 space-y-2 md:pb-10">
         <p className="text-gray-400 text-sm font-semibold">
           Speed Boat in Alleppey · Punnamada Lake Jetty · Alappuzha, Kerala 688006
         </p>
@@ -820,7 +1100,7 @@ export default function Home() {
       </footer>
 
       {/* ─── STICKY MOBILE CTA ────────────────────────────────────────────── */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden border-t border-gray-200 bg-white/95 backdrop-blur-md">
+      <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden border-t border-gray-200 bg-white/95 backdrop-blur-md" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
         <div className="grid grid-cols-2">
           <a
             href={`tel:${PHONE}`}
