@@ -522,33 +522,6 @@ export default function Home() {
             </p>
           </BlurFade>
 
-          {/* CTA row */}
-          <BlurFade delay={0.38} duration={0.6}>
-            <div className="flex flex-col sm:flex-row gap-3 mb-7 sm:mb-10">
-              {/* Primary — shimmer CTA */}
-              <a
-                href={`https://wa.me/${WHATSAPP}?text=Hi%2C%20I%20want%20to%20book%20a%20speed%20boat%20ride%20in%20Alleppey`}
-                target="_blank"
-                rel="noopener noreferrer"
-                id="hero-whatsapp-cta"
-                className="btn-shimmer relative overflow-hidden group inline-flex items-center justify-center gap-2.5 bg-green-500 hover:bg-green-400 text-white font-black px-6 sm:px-8 py-4 rounded-2xl transition-all duration-200 text-sm sm:text-base shadow-[0_4px_40px_rgba(34,197,94,0.55)] hover:shadow-[0_4px_60px_rgba(34,197,94,0.8)] hover:scale-[1.04] active:scale-[0.98]"
-              >
-                <MessageCircle size={18} className="shrink-0" />
-                <span className="hidden sm:inline">Book on WhatsApp — Instant Confirm</span>
-                <span className="sm:hidden">Book on WhatsApp</span>
-                <span className="absolute right-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-1 transition-all duration-200 text-lg">→</span>
-              </a>
-              {/* Secondary — ghost */}
-              <a
-                href={`tel:${PHONE}`}
-                id="hero-call-cta"
-                className="inline-flex items-center justify-center gap-2.5 border border-white/30 hover:border-white/60 hover:bg-white/8 text-white font-semibold px-6 sm:px-8 py-4 rounded-2xl transition-all duration-200 text-sm sm:text-base backdrop-blur-sm"
-              >
-                <Phone size={20} className="shrink-0" />
-                Call to Book
-              </a>
-            </div>
-          </BlurFade>
 
           {/* Trust badges */}
           <BlurFade delay={0.5} duration={0.6}>
