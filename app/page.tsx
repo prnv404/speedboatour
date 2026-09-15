@@ -248,38 +248,35 @@ export default function Home() {
       />
 
       {/* ─── PREMIUM FLOATING NAVBAR ──────────────────────────────────────── */}
-      <div className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
-        scrolled ? "px-3 sm:px-5 pt-3" : "px-4 sm:px-8 pt-4"
-      }`}>
+      <div className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${scrolled ? "px-3 sm:px-5 pt-3" : "px-4 sm:px-8 pt-4"
+        }`}>
         <header
-          className={`relative overflow-hidden transition-all duration-500 ease-out ${
-            scrolled
+          className={`relative overflow-hidden transition-all duration-500 ease-out ${scrolled
               ? [
-                  // Entrance animation
-                  justScrolled ? "navbar-enter" : "",
-                  // Glass sweep shimmer
-                  "glass-sweep",
-                  // Premium layered glass background
-                  "bg-gradient-to-b from-white/[0.08] to-white/[0.04]",
-                  // Strong blur
-                  "backdrop-blur-2xl",
-                  // Subtle border
-                  "border-b border-white/10",
-                  // Deep shadow
-                  "shadow-[0_4px_60px_rgba(0,0,0,0.6),0_1px_0_rgba(255,255,255,0.06)_inset]",
-                  "rounded-xl",
-                  // Dark base via ::before (done via inline style below)
-                ].join(" ")
+                // Entrance animation
+                justScrolled ? "navbar-enter" : "",
+                // Glass sweep shimmer
+                "glass-sweep",
+                // Premium layered glass background
+                "bg-gradient-to-b from-white/[0.08] to-white/[0.04]",
+                // Strong blur
+                "backdrop-blur-2xl",
+                // Subtle border
+                "border-b border-white/10",
+                // Deep shadow
+                "shadow-[0_4px_60px_rgba(0,0,0,0.6),0_1px_0_rgba(255,255,255,0.06)_inset]",
+                "rounded-xl",
+                // Dark base via ::before (done via inline style below)
+              ].join(" ")
               : "bg-white/5 backdrop-blur-md border border-white/15 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.3)]"
-          }`}
+            }`}
           style={scrolled ? { backgroundColor: "rgba(8,8,12,0.75)" } : {}}
         >
           <nav
-            className={`flex items-center justify-between transition-all duration-500 ${
-              scrolled
+            className={`flex items-center justify-between transition-all duration-500 ${scrolled
                 ? "max-w-none px-5 sm:px-8 h-[52px]"
                 : "px-5 sm:px-6 h-[52px]"
-            }`}
+              }`}
             aria-label="Main navigation"
           >
             {/* — Brand lockup — */}
@@ -357,9 +354,8 @@ export default function Home() {
 
           {/* — Mobile dropdown — */}
           <div
-            className={`md:hidden overflow-hidden transition-all duration-300 ${
-              mobileOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"
-            }`}
+            className={`md:hidden overflow-hidden transition-all duration-300 ${mobileOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"
+              }`}
           >
             <div className="px-4 pb-4 pt-1 flex flex-col gap-1 border-t border-white/10">
               {navLinks.map(({ label, href }) => (
@@ -545,7 +541,7 @@ export default function Home() {
         <div className="absolute bottom-20 left-1/2 scroll-caret flex flex-col items-center gap-2 text-white/35 text-[10px] tracking-[0.25em] uppercase z-10">
           <span>Scroll</span>
           <svg width="14" height="8" viewBox="0 0 14 8" fill="none" aria-hidden="true">
-            <path d="M1 1L7 7L13 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M1 1L7 7L13 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
 
