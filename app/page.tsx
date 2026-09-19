@@ -252,30 +252,30 @@ export default function Home() {
         }`}>
         <header
           className={`relative overflow-hidden transition-all duration-500 ease-out ${scrolled
-              ? [
-                // Entrance animation
-                justScrolled ? "navbar-enter" : "",
-                // Glass sweep shimmer
-                "glass-sweep",
-                // Premium layered glass background
-                "bg-gradient-to-b from-white/[0.08] to-white/[0.04]",
-                // Strong blur
-                "backdrop-blur-2xl",
-                // Subtle border
-                "border-b border-white/10",
-                // Deep shadow
-                "shadow-[0_4px_60px_rgba(0,0,0,0.6),0_1px_0_rgba(255,255,255,0.06)_inset]",
-                "rounded-xl",
-                // Dark base via ::before (done via inline style below)
-              ].join(" ")
-              : "bg-white/5 backdrop-blur-md border border-white/15 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.3)]"
+            ? [
+              // Entrance animation
+              justScrolled ? "navbar-enter" : "",
+              // Glass sweep shimmer
+              "glass-sweep",
+              // Premium layered glass background
+              "bg-gradient-to-b from-white/[0.08] to-white/[0.04]",
+              // Strong blur
+              "backdrop-blur-2xl",
+              // Subtle border
+              "border-b border-white/10",
+              // Deep shadow
+              "shadow-[0_4px_60px_rgba(0,0,0,0.6),0_1px_0_rgba(255,255,255,0.06)_inset]",
+              "rounded-xl",
+              // Dark base via ::before (done via inline style below)
+            ].join(" ")
+            : "bg-white/5 backdrop-blur-md border border-white/15 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.3)]"
             }`}
           style={scrolled ? { backgroundColor: "rgba(8,8,12,0.75)" } : {}}
         >
           <nav
             className={`flex items-center justify-between transition-all duration-500 ${scrolled
-                ? "max-w-none px-5 sm:px-8 h-[52px]"
-                : "px-5 sm:px-6 h-[52px]"
+              ? "max-w-none px-5 sm:px-8 h-[52px]"
+              : "px-5 sm:px-6 h-[52px]"
               }`}
             aria-label="Main navigation"
           >
@@ -384,19 +384,32 @@ export default function Home() {
       <section className="relative min-h-[100svh] flex items-end overflow-hidden" aria-label="Hero">
         {/* ── Background image + layered gradients ── */}
         <div className="absolute inset-0">
+          {/* Mobile hero image — portrait, sunset framing */}
           <Image
-            src="/images/hero1.jpeg"
-            alt="Speed boat cutting through Punnamada Lake at high speed, Alleppey Kerala"
+            src="/images/hero-mobile.jpg"
+            alt="Happy riders on a speed boat at sunset, Punnamada Lake Alleppey Kerala"
             fill
             priority
-            className="object-cover object-center scale-105"
+            className="object-cover [object-position:center_25%] block md:hidden"
             sizes="100vw"
           />
-          {/* Cinematic gradient stack */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/20" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/20 to-transparent" />
-          {/* Subtle vignette */}
-          <div className="absolute inset-0 bg-radial-[ellipse_80%_60%_at_50%_50%] from-transparent to-black/40" />
+          {/* Desktop hero image — landscape group shot */}
+          <Image
+            src="/images/hero-desktop.jpg"
+            alt="Happy riders on a speed boat at Punnamada Lake, Alleppey Kerala"
+            fill
+            priority
+            className="object-cover [object-position:center_55%] hidden md:block"
+            sizes="100vw"
+          />
+          {/* Mobile: warm sunset tint + bottom fade for text legibility */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 block md:hidden" />
+          <div className="absolute inset-0 bg-gradient-to-b from-amber-900/20 via-transparent to-transparent block md:hidden" />
+          {/* Desktop: cinematic gradient — lighter so the image breathes */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent hidden md:block" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/10 to-transparent hidden md:block" />
+          {/* Shared edge vignette */}
+          <div className="absolute inset-0" style={{background: "radial-gradient(ellipse 100% 70% at 50% 50%, transparent 40%, rgba(0,0,0,0.35) 100%)"}} />
         </div>
 
         {/* ── Animated SVG speed-lines overlay ── */}
@@ -475,7 +488,7 @@ export default function Home() {
         </div>
 
         {/* ── Hero content — left-aligned editorial layout ── */}
-        <div className="relative z-10 w-full max-w-6xl mx-auto px-5 sm:px-10 pb-28 sm:pb-24 pt-32 sm:pt-40">
+        <div className="relative z-10 w-full max-w-6xl mx-auto px-5 sm:px-10 pb-28 sm:pb-24 pt-[55vh] sm:pt-40">
           <BlurFade delay={0} duration={0.5}>
             {/* Rating pill */}
             <div className="inline-flex items-center gap-2.5 badge-glow bg-green-500/15 backdrop-blur-sm border border-green-500/35 rounded-full px-4 py-1.5 mb-8">
@@ -669,10 +682,10 @@ export default function Home() {
             <div className="relative">
               <div className="relative rounded-2xl overflow-hidden aspect-[4/3] ring-1 ring-gray-200 shadow-[0_0_60px_rgba(34,197,94,0.1)]">
                 <Image
-                  src="/images/hero2.jpeg"
-                  alt="Speed boat at Punnamada Lake backwaters Alleppey"
+                  src="/images/gallery-4.jpeg"
+                  alt="Speed boat riders at Punnamada Lake backwaters Alleppey"
                   fill
-                  className="object-cover"
+                  className="object-cover object-center"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
