@@ -45,25 +45,25 @@ const galleryCards = [
 
 const packages = [
   {
-    name: "Quick Thrill",
+    name: "10 Min Ride",
     duration: "10 minutes",
-    basePrice: "₹1,000",
-    baseSub: "up to 3 persons",
-    extraPrice: "+₹300",
-    extraSub: "per extra person (4–7)",
+    basePrice: "₹400/person",
+    baseSub: "per head",
+    extraPrice: null as string | null,
+    extraSub: null as string | null,
     maxCapacity: "7",
     badge: null as string | null,
-    features: ["High-speed lake loop", "Life jackets included", "Great for first-timers"],
+    features: ["Minimum ₹1,300 for up to 3 persons", "High-speed lake loop", "Life jackets included", "Great for first-timers"],
   },
   {
-    name: "Full Rush",
+    name: "30 Min Ride",
     duration: "30 minutes",
-    basePrice: "₹2,500",
-    baseSub: "up to 4 persons",
-    extraPrice: "₹3,000",
-    extraSub: "flat rate for 5–7 persons",
+    basePrice: "₹3,000",
+    baseSub: "up to 3 persons",
+    extraPrice: "+₹400/person",
+    extraSub: "per extra person (4–7)",
     maxCapacity: "7",
-    badge: null as string | null,
+    badge: "Most Popular" as string | null,
     features: [
       "Extended backwater route",
       "Photo stops at scenic spots",
@@ -72,12 +72,12 @@ const packages = [
     ],
   },
   {
-    name: "Private Charter",
-    duration: "1 hour",
+    name: "60 Min Ride",
+    duration: "60 minutes",
     basePrice: "₹5,000",
-    baseSub: "up to 4 persons",
-    extraPrice: "₹6,000",
-    extraSub: "flat rate for 5–7 persons",
+    baseSub: "up to 3 persons",
+    extraPrice: "+₹500/person",
+    extraSub: "per extra person (4–7)",
     maxCapacity: "7",
     badge: null as string | null,
     features: [
@@ -736,10 +736,12 @@ export default function Home() {
                       <span className="text-xs text-gray-500">{pkg.baseSub}</span>
                       <span className="text-xl font-black text-gray-900">{pkg.basePrice}</span>
                     </div>
-                    <div className="flex items-center justify-between px-4 py-3 bg-white">
-                      <span className="text-xs text-gray-400">{pkg.extraSub}</span>
-                      <span className="text-lg font-bold text-green-600">{pkg.extraPrice}</span>
-                    </div>
+                    {pkg.extraPrice && (
+                      <div className="flex items-center justify-between px-4 py-3 bg-white">
+                        <span className="text-xs text-gray-400">{pkg.extraSub}</span>
+                        <span className="text-lg font-bold text-green-600">{pkg.extraPrice}</span>
+                      </div>
+                    )}
                   </div>
                   <ul className="space-y-3 mb-8 flex-1">
                     {pkg.features.map((f) => (
